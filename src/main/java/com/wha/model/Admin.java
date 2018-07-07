@@ -42,9 +42,9 @@ public class Admin extends User {
 		this.contratStartingDate = contratStartingDate;
 	}
 
-	public Admin(int id, String firstName, String lastName, String email, String mobile, String address,
+	public Admin(int id, String firstName, String lastName, String email, String password, String mobile, String address,
 			Date dateOfBirth, String matricule, String fonction, Date contratStartingDate) {
-		super(id, firstName, lastName, email, mobile, address, dateOfBirth);
+		super(id, firstName, lastName, email, password, mobile, address, dateOfBirth);
 		this.matricule = matricule;
 		this.fonction = fonction;
 		this.contratStartingDate = contratStartingDate;

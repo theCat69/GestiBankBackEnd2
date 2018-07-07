@@ -23,9 +23,9 @@ public class Conseiller extends User {
 		super();
 	}
 
-	public Conseiller(int id, String firstName, String lastName, String email, String mobile, String address,
+	public Conseiller(int id, String firstName, String lastName, String email, String password, String mobile, String address,
 			Date dateOfBirth, List<Client> clients) {
-		super(id, firstName, lastName, email, mobile, address, dateOfBirth);
+		super(id, firstName, lastName, email, password, mobile, address, dateOfBirth);
 		this.clients = clients;
 	}
 

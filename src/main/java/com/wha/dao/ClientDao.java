@@ -21,4 +21,6 @@ public interface ClientDao {
 	Client updateClient(Client user);
 	
 	Client updateClientById(int id, Client user);
+	
+	Client findByNumeroClient(int numeroclient);
 }

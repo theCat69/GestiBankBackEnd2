@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 @DiscriminatorValue("CLIENT")
 public class Client extends User {
 	
+	private int numeroclient;
 	
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
 	private List<Compte> comptes;
@@ -35,9 +36,16 @@ public class Client extends User {
 		super();
 	}
 
-	public Client(int id, String firstName, String lastName, String email, String mobile, Date date, String address, List<Compte> comptes) {
-		super(id, firstName, lastName, email, mobile, address, date);
+	public Client(int id, String firstName, String lastName, String email, String password, String mobile, Date date, String address, List<Compte> comptes) {
+		super(id, firstName, lastName, email, password, mobile, address, date);
 		this.comptes = comptes;
 	}
 
+	public int getNumeroclient() {
+		return numeroclient;
+	}
+
+	public void setNumeroclient(int numeroclient) {
+		this.numeroclient = numeroclient;
+	}
 }

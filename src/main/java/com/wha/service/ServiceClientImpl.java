@@ -13,7 +13,7 @@ public class ServiceClientImpl implements ServiceClient {
 
 	@Autowired
 	private ClientDao clientDao;
-	
+
 	@Override
 	public Client findClientByName(String name) {
 		return clientDao.findByName(name);
@@ -21,6 +21,17 @@ public class ServiceClientImpl implements ServiceClient {
 
 	@Override
 	public void saveClient(Client client) {
+		//cette partie ne sert que à créé des numéro client aléatoire, de vérifié si il éxiste, et si non l'attribué au client
+		boolean numeroClientExist = true;
+		while (numeroClientExist) {
+			int numeroclient = (int) Math.round(Math.random() * (9999 - 1111));
+			Client numeroClientExistclient = clientDao.findByNumeroClient(numeroclient);
+			if (numeroClientExistclient == null) {
+				client.setNumeroclient(numeroclient);
+				numeroClientExist = false;
+			}
+		}
+		//si vous voulez sauvegarder sans logic métier juste faire la commande qui suit
 		clientDao.save(client);
 	}
 
@@ -38,11 +49,13 @@ public class ServiceClientImpl implements ServiceClient {
 	public void updateClient(Client client) {
 		clientDao.updateClient(client);
 	}
+
 	@Override
 	public void deleteClientById(int id) {
 		clientDao.deleteClientById(id);
-		
+
 	}
+
 	@Override
 	public void updateClientById(int id, Client client) {
 		clientDao.updateClientById(id, client);
@@ -52,6 +65,5 @@ public class ServiceClientImpl implements ServiceClient {
 	public void deleteAllClients() {
 		clientDao.deleteAllClients();
 	}
-	
 
 }

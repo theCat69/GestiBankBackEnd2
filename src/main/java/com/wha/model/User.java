@@ -22,22 +22,27 @@ public abstract class User {
 	protected String firstName;
 	protected String lastName;
 	protected String email;
+	protected String password;
 	protected String mobile;
 	protected String address;
 	protected Date dateOfBirth;
 
-	public User(int id, String firstName, String lastName, String email, String mobile, String address, Date dateOfBirth) {
+	
+
+	public User() {
+	}
+
+	public User(int id, String firstName, String lastName, String email, String password, String mobile, String address,
+			Date dateOfBirth) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.password = password;
 		this.mobile = mobile;
 		this.address = address;
 		this.dateOfBirth = dateOfBirth;
-	}
-
-	public User() {
 	}
 
 	public int getId() {
@@ -95,4 +100,14 @@ public abstract class User {
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
 }

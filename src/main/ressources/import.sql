@@ -1,0 +1,2 @@
+INSERT INTO `gestibankbd`.`user` (`USER_TYPE`, `id`, `address`, `dateOfBirth`, `email`, `firstName`, `lastName`, `mobile`) VALUES ('Client', '1', '19 rue Danton', '2018-07-10 00:00:00', 'vadcard.felix@gmail.com', 'Félix', 'Vadard', '613938746');
+INSERT INTO `gestibankbd`.`user` (`USER_TYPE`, `id`, `address`, `dateOfBirth`, `email`, `firstName`, `lastName`, `mobile`, `contratStartingDate`, `fonction`, `matricule`) VALUES ('Client', '2', '27 allée du petit bois', '2018-07-09 00:00:00', 'gunter@mail.com', 'Gunter', 'Gunter', '678469587', NULL, NULL, NULL);

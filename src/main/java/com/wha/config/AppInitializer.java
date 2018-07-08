@@ -1,5 +1,7 @@
 package com.wha.config;
 
+import javax.servlet.Filter;
+
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -21,5 +23,11 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		return new String[] { "/" };
 	}
 	
+    @Override
+    protected Filter[] getServletFilters() {
+    	Filter [] singleton = { new CORSFilter() };
+    	return singleton;
+	}
+ 
 	
 }

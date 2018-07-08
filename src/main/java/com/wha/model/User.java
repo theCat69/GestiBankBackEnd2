@@ -23,7 +23,7 @@ public abstract class User {
 	protected String lastName;
 	protected String email;
 	protected String password;
-	protected String mobile;
+	protected String phonenumber;
 	protected String address;
 	protected Date dateOfBirth;
 
@@ -32,7 +32,7 @@ public abstract class User {
 	public User() {
 	}
 
-	public User(int id, String firstName, String lastName, String email, String password, String mobile, String address,
+	public User(int id, String firstName, String lastName, String email, String password, String phonenumber, String address,
 			Date dateOfBirth) {
 		super();
 		this.id = id;
@@ -40,7 +40,7 @@ public abstract class User {
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
-		this.mobile = mobile;
+		this.phonenumber = phonenumber;
 		this.address = address;
 		this.dateOfBirth = dateOfBirth;
 	}
@@ -77,12 +77,12 @@ public abstract class User {
 		this.email = email;
 	}
 
-	public String getMobile() {
-		return mobile;
+	public String getPhonenumber() {
+		return phonenumber;
 	}
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
 	}
 
 	public String getAddress() {

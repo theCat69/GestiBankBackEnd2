@@ -58,6 +58,9 @@ public class ServiceClientImpl implements ServiceClient {
 
 	@Override
 	public void updateClientById(int id, Client client) {
+		Client oldclient = clientDao.findById(id);
+		client.setNumeroclient(oldclient.getNumeroclient());
+		client.setPassword(oldclient.getPassword());
 		clientDao.updateClientById(id, client);
 	}
 

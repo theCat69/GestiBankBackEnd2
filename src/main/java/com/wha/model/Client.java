@@ -36,8 +36,8 @@ public class Client extends User {
 		super();
 	}
 
-	public Client(int id, String firstName, String lastName, String email, String password, String mobile, Date date, String address, List<Compte> comptes) {
-		super(id, firstName, lastName, email, password, mobile, address, date);
+	public Client(int id, String firstName, String lastName, String email, String password, String phonenumber, Date date, String address, List<Compte> comptes) {
+		super(id, firstName, lastName, email, password, phonenumber, address, date);
 		this.comptes = comptes;
 	}
 

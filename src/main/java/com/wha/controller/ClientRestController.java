@@ -15,13 +15,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wha.model.Client;
+import com.wha.model.Compte;
 import com.wha.service.ServiceClient;
+import com.wha.service.ServiceCompte;
 
 @RestController
 public class ClientRestController {
 	
 	@Autowired
 	private ServiceClient serviceClient;
+	private ServiceCompte serviceCompte;
 
 	public ClientRestController() {
 	}
@@ -29,6 +32,12 @@ public class ClientRestController {
 	@GetMapping("/clients")
 	public List<Client> getClients() {
 		return serviceClient.findAllClients();
+	}
+	
+	@GetMapping("/client/{id}/comptes")
+	public List<Compte> getComptes(@PathVariable("id") int id) {
+		Client client = serviceClient.findById(id);
+		return serviceCompte.findAllComptes();
 	}
 
 	@GetMapping("/clients/{id}")

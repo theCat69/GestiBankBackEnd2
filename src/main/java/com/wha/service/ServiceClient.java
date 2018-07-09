@@ -5,7 +5,7 @@ import java.util.List;
 import com.wha.model.Client;
 
 public interface ServiceClient {
-	
+
 	Client findClientByName(String name);
 
 	void saveClient(Client client);
@@ -13,7 +13,7 @@ public interface ServiceClient {
 	List<Client> findAllClients();
 
 	Client findById(int id);
-	
+
 	void deleteAllClients();
 
 	void updateClient(Client client);
@@ -21,6 +21,5 @@ public interface ServiceClient {
 	void deleteClientById(int id);
 
 	void updateClientById(int id, Client client);
-	
 
 }

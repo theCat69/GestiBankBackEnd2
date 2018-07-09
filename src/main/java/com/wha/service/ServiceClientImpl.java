@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.wha.dao.ClientDao;
 import com.wha.model.Client;
@@ -57,11 +58,15 @@ public class ServiceClientImpl implements ServiceClient {
 	}
 
 	@Override
+	@Transactional
 	public void updateClientById(int id, Client client) {
 		Client oldclient = clientDao.findById(id);
+		System.out.println(oldclient);
 		client.setNumeroclient(oldclient.getNumeroclient());
 		client.setPassword(oldclient.getPassword());
-		clientDao.updateClientById(id, client);
+		client.setComptes(oldclient.getComptes());
+		client.setDateOfBirth(oldclient.getDateOfBirth());
+		clientDao.updateClient(client);
 	}
 
 	@Override

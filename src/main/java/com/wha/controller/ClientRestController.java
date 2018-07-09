@@ -68,9 +68,12 @@ public class ClientRestController {
 	
 	@PutMapping("/clients/{id}")
 	@Transactional
-	public ResponseEntity<Client> updateClient(@PathVariable("id") int id, @RequestBody Client client) {
+	public ResponseEntity<Boolean> updateClient(@PathVariable("id") int id, @RequestBody Client client) {
+		if (client == null)
+		{return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);}
+		else {
 		serviceClient.updateClientById(id, client);
-		return new ResponseEntity<Client>(client, HttpStatus.OK);
-	
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		}
 	}
 }

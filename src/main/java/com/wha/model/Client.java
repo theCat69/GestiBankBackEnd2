@@ -21,7 +21,7 @@ public class Client extends User {
 	
 	private int numeroclient;
 	
-	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=false, fetch=FetchType.EAGER)
 	private List<Compte> comptes;
 
 	public List<Compte> getComptes() {

@@ -48,6 +48,7 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 		int count = getEntityManager().createQuery("delete from Client c").executeUpdate();
 	}
 
+	//ne marche pas !!!
 	@Override
 	public Client updateClientById(int id, Client client) {
 		int count = getEntityManager().createQuery("update Client c set c = ?2 where c.id = ?1").setParameter(1, id)
@@ -61,9 +62,8 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 	}
 
 	@Override
-	public Client updateClient(Client user) {
-		// TODO Auto-generated method stub
-		return null;
+	public void updateClient(Client user) {
+		update(user);
 	}
 
 	

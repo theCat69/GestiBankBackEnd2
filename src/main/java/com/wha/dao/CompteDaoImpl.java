@@ -4,8 +4,11 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import org.springframework.stereotype.Repository;
+
 import com.wha.model.Compte;
 
+@Repository("comptetDao")
 public class CompteDaoImpl extends AbstractDao<Long, Compte> implements CompteDao {
 
 	@Override

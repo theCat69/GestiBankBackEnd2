@@ -1,7 +1,6 @@
 package com.wha.dao;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.wha.model.Admin;
@@ -34,6 +33,7 @@ public class AdminDaoBouchon {
 		return admin;
 	}
 
+	@SuppressWarnings("null")
 	public int delete(int id) {
 		for (Admin a : admins) {
 			if (a.getId() == id) {

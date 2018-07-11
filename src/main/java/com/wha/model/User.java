@@ -14,7 +14,7 @@ import javax.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "USER_TYPE", discriminatorType = DiscriminatorType.STRING)
-public abstract class User {
+public class User {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

@@ -20,15 +20,23 @@ class ServiceUserImpl implements ServiceUser {
 
 	@Override
 	public User connectUser(String email, String password) {
+		
 		User user = userDao.findByEmail(email);
+//		System.out.println("i did Dao call");
 		if (user == null) {
+//			System.out.println("user is null");
 			return null;
 		}
 		else {
-			if (password == user.getPassword()) {
+			if (password.equals(user.getPassword())) {
+				
+//				System.out.println("all good go to WebService");
 				return user;
 			}
 			else {
+//				System.out.println("pasword from front : " + password + " / DBpassword : " + user.getPassword());
+//				System.out.println((password == user.getPassword()));
+//				System.out.println("password is wrong");
 				return null;
 			}
 		}

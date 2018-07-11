@@ -77,18 +77,19 @@ public class ClientRestController {
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		}
 	}
-	
+
 	@GetMapping("/clients/{id}/comptes")
 	public List<Compte> getComptes(@PathVariable("id") int id) {
 		Client client = serviceClient.findById(id);
 		return client.getComptes();
 	}
-	
-	@PostMapping(value = "/clients/{id}/comptes")
+
+	@PutMapping(value = "/clients/{id}/comptes")
 	@Transactional
-	public ResponseEntity<Client> createCompte(@PathVariable("id") int id, @RequestBody Client client, @RequestBody Compte compte) {
+	public ResponseEntity<Client> createCompte(@PathVariable("id") int id, @RequestBody Compte compte) {
+		Client client = serviceClient.findById(id);
 		client.getComptes().add(compte);
-		serviceClient.saveClient(client);
+		serviceClient.updateClient(client);
 		return new ResponseEntity<Client>(client, HttpStatus.OK);
 	}
 }

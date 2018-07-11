@@ -19,6 +19,7 @@ public class ConseillerDaoBouchon {
 		List<Compte> comptes3 = new ArrayList<Compte>();
 		comptes3.add(new Compte(1003L, "Compte courant", new Date(), 0L));
 		
+		@SuppressWarnings("unused")
 		List<Client> clients1 = new ArrayList<Client>();
 //		clients1.add(new Client(1, "John", "Doe", "[email protected]", "121-232-3435", new Date(), "Ici", comptes1));
 //		clients1.add(new Client(2, "John2", "Doe2", "[email protected]", "121-232-3435", new Date(), "Ici", comptes2));

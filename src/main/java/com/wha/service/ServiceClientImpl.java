@@ -25,7 +25,7 @@ public class ServiceClientImpl implements ServiceClient {
 		//cette partie ne sert que à créé des numéro client aléatoire, de vérifié si il éxiste, et si non l'attribué au client
 		boolean numeroClientExist = true;
 		while (numeroClientExist) {
-			int numeroclient = (int) Math.round(Math.random() * (9999 - 1111));
+			int numeroclient = (int) (Math.random() * 8888 + 1111);
 			Client numeroClientExistclient = clientDao.findByNumeroClient(numeroclient);
 			if (numeroClientExistclient == null) {
 				client.setNumeroclient(numeroclient);

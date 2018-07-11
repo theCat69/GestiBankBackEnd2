@@ -10,9 +10,9 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING)
-@DiscriminatorValue("Admin")
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING)
+//@DiscriminatorValue("Admin")
 public class Admin extends User {
 	private String matricule;
 	private String fonction;
@@ -40,6 +40,13 @@ public class Admin extends User {
 
 	public void setContratStartingDate(Date contratStartingDate) {
 		this.contratStartingDate = contratStartingDate;
+	}
+ 
+	
+	
+	public Admin() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public Admin(int id, String firstName, String lastName, String email, String password, String phonenumber, String address,

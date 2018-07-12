@@ -12,8 +12,6 @@ INSERT INTO `gestibankbd`.`operation` (`OPERATION_TYPE`, `id`, `date`, `somme`) 
 INSERT INTO `gestibankbd`.`compte_operation` (`Compte_rib`, `operations_id`) VALUES ('10258101', '1');
 INSERT INTO `gestibankbd`.`compte_operation` (`Compte_rib`, `operations_id`) VALUES ('10258102', '2');
 
-
-
 INSERT INTO `gestibankbd`.`user` (`USER_TYPE`, `id`, `address`, `dateOfBirth`, `email`, `firstName`, `lastName`, `password`, `phonenumber`, `numeroclient`, `contratStartingDate`, `fonction`, `matricule`) VALUES ('Conseiller', '3', 'la banque', '2015-07-15 00:00:00', 'conseiller@mail.com', 'Conseiller', 'Conseiller', 'Conseiller', '0654798216', NULL, '2018-05-16 00:00:00', NULL, '06015496');
 
 INSERT INTO `gestibankbd`.`user` (`USER_TYPE`, `id`, `address`, `dateOfBirth`, `email`, `firstName`, `lastName`, `password`, `phonenumber`, `numeroclient`, `contratStartingDate`, `fonction`, `matricule`) VALUES ('Admin', '4', 'le siege de la banque', '1990-03-11 00:00:00', 'admin@mail.com', 'Admin', 'Admin', 'Admin', '0615789436', NULL, '2017-12-12 00:00:00', 'Admin', '05134679');

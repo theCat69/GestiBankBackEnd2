@@ -26,6 +26,7 @@ public class CompteDaoImpl extends AbstractDao<Long, Compte> implements CompteDa
 		delete(getByKey(rib));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Compte> findAllComptes() {
 		Query q = getEntityManager().createQuery("select c from Compte c");
@@ -34,6 +35,7 @@ public class CompteDaoImpl extends AbstractDao<Long, Compte> implements CompteDa
 
 	@Override
 	public void deleteAllComptes() {
+		@SuppressWarnings("unused")
 		int count = getEntityManager().createQuery("delete from Compte c").executeUpdate();
 	}
 
@@ -44,6 +46,7 @@ public class CompteDaoImpl extends AbstractDao<Long, Compte> implements CompteDa
 
 	@Override
 	public Compte updateCompteByRib(Long rib, Compte compte) {
+		@SuppressWarnings("unused")
 		int count = getEntityManager().createQuery("update Compte c set c = ?2 where c.id = ?1").setParameter(1, rib)
 				.setParameter(2, compte).executeUpdate();
 		return compte;

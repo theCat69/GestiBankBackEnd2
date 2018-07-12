@@ -16,4 +16,5 @@ public class RandomGen {
 	    //System.out.println(pass);
 	    return pass;
 		}
+	
 }

@@ -4,32 +4,50 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
+
+@SuppressWarnings("serial")
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING)
-@DiscriminatorValue("CONSEILLER")
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING)
+//@DiscriminatorValue("CONSEILLER")
 public class Conseiller extends User {
+
+	private String matricule;
+	private Date contratStartingDate;
+	
+	public String getMatricule() {
+		return matricule;
+	}
+
+	public void setMatricule(String matricule) {
+		this.matricule = matricule;
+	}
+
+	public Date getContratStartingDate() {
+		return contratStartingDate;
+	}
+
+	public void setContratStartingDate(Date contratStartingDate) {
+		this.contratStartingDate = contratStartingDate;
+	}
 
 	public Conseiller() {
 		super();
 	}
 
 	public Conseiller(int id, String firstName, String lastName, String email, String password, String phonenumber, String address,
-			Date dateOfBirth, List<Client> clients) {
+			Date dateOfBirth, List<Client> clients, String matricule, Date contratStartingDate) {
 		super(id, firstName, lastName, email, password, phonenumber, address, dateOfBirth);
 		this.clients = clients;
+		this.matricule = matricule;
+		this.contratStartingDate = contratStartingDate;
 	}
 
-	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=false, fetch=FetchType.EAGER)
 	private List<Client> clients;
 
 	public Conseiller(List<Client> clients) {

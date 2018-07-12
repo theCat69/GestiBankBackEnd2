@@ -37,6 +37,7 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 		delete(getByKey(id));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Client> findAllClients() {
 		Query q = getEntityManager().createQuery("select c from Client c");
@@ -45,12 +46,14 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 
 	@Override
 	public void deleteAllClients() {
+		@SuppressWarnings("unused")
 		int count = getEntityManager().createQuery("delete from Client c").executeUpdate();
 	}
 
 	//ne marche pas !!!
 	@Override
 	public Client updateClientById(int id, Client client) {
+		@SuppressWarnings("unused")
 		int count = getEntityManager().createQuery("update Client c set c = ?2 where c.id = ?1").setParameter(1, id)
 				.setParameter(2, client).executeUpdate();
 		return client;

@@ -39,7 +39,7 @@ public class UserRestController {
 		catch (Exception e) {
 //		System.out.println(e.getMessage());
 //		System.out.println("i Catch");
-		return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);
 		}
 	}
 }

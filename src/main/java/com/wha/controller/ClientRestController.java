@@ -84,12 +84,41 @@ public class ClientRestController {
 		return client.getComptes();
 	}
 
-	@PutMapping(value = "/clients/{id}/comptes")
+	@PutMapping("/clients/{id}/comptes")
 	@Transactional
 	public ResponseEntity<Client> createCompte(@PathVariable("id") int id, @RequestBody Compte compte) {
 		Client client = serviceClient.findById(id);
-		client.getComptes().add(compte);
-		serviceClient.updateClient(client);
-		return new ResponseEntity<Client>(client, HttpStatus.OK);
+		if (client == null) {
+			return new ResponseEntity<Client>(client, HttpStatus.NOT_FOUND);
+		} else {
+			if (compte == null) {
+				return new ResponseEntity<Client>(client, HttpStatus.NO_CONTENT);
+			} else {
+				client.getComptes().add(compte);
+				serviceClient.updateClient(client);
+				System.out.println(client);
+				return new ResponseEntity<Client>(client, HttpStatus.OK);
+			}
+		}
+
+	}
+	
+	@DeleteMapping("/clients/{id}/comptes")
+	@Transactional
+	public ResponseEntity<Client> deleteCompte(@PathVariable("id") int id, @RequestBody Compte compte) {
+		Client client = serviceClient.findById(id);
+		if (client == null) {
+			return new ResponseEntity<Client>(client, HttpStatus.NOT_FOUND);
+		} else {
+			if (compte == null) {
+				return new ResponseEntity<Client>(client, HttpStatus.NO_CONTENT);
+			} else {
+				client.getComptes().remove(compte);
+				serviceClient.updateClient(client);
+				System.out.println(client);
+				return new ResponseEntity<Client>(client, HttpStatus.OK);
+			}
+		}
+
 	}
 }

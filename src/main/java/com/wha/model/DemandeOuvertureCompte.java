@@ -1,6 +1,14 @@
 package com.wha.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class DemandeOuvertureCompte {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int id;
 	
 	private int idClient;
 	private int idConseiller;
@@ -9,11 +17,20 @@ public class DemandeOuvertureCompte {
 	public DemandeOuvertureCompte() {	
 	}
 
-	public DemandeOuvertureCompte(int idClient, int idConseiller, String description) {
+	public DemandeOuvertureCompte(int id, int idClient, int idConseiller, String description) {
 		super();
+		this.id = id;
 		this.idClient = idClient;
 		this.idConseiller = idConseiller;
 		this.description = description;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getIdClient() {

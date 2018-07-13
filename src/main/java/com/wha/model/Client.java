@@ -4,9 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,12 +20,26 @@ public class Client extends User {
 	
 	private int numeroclient;
 	
-	@ManyToOne
-	private Conseiller conseiller;
-	
 	@JsonIgnore
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=false, fetch=FetchType.EAGER)
 	private List<Compte> comptes;
+	
+
+	private int idConseiller;
+
+	public Client() {
+		super();
+	}
+
+	
+	public Client(int id, String firstName, String lastName, String email, String password, String phonenumber,
+			String address, Date dateOfBirth, int numeroclient, List<Compte> comptes, int idconseiller) {
+		super(id, firstName, lastName, email, password, phonenumber, address, dateOfBirth);
+		this.numeroclient = numeroclient;
+		this.comptes = comptes;
+		this.idConseiller = idconseiller;
+	}
+
 
 	public List<Compte> getComptes() {
 		return comptes;
@@ -33,16 +47,6 @@ public class Client extends User {
 
 	public void setComptes(List<Compte> comptes) {
 		this.comptes = comptes;
-	}
-
-	public Client() {
-		super();
-	}
-
-	public Client(int id, String firstName, String lastName, String email, String password, String phonenumber, Date date, String address, List<Compte> comptes, Conseiller conseiller) {
-		super(id, firstName, lastName, email, password, phonenumber, address, date);
-		this.comptes = comptes;
-		this.conseiller = conseiller;
 	}
 
 	public int getNumeroclient() {
@@ -53,12 +57,17 @@ public class Client extends User {
 		this.numeroclient = numeroclient;
 	}
 
-	public Conseiller getConseiller() {
-		return conseiller;
+
+	public int getIdConseiller() {
+		return idConseiller;
 	}
 
-	public void setConseiller(Conseiller conseiller) {
-		this.conseiller = conseiller;
+
+	public void setIdConseiller(int idConseiller) {
+		this.idConseiller = idConseiller;
 	}
+
+	
+	
 	
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wha.dao.ClientDao;
+import com.wha.dao.DemandeOuvertureCompteDao;
 import com.wha.model.Client;
 import com.wha.model.DemandeOuvertureCompte;
 
@@ -15,7 +16,9 @@ public class ServiceClientImpl implements ServiceClient {
 
 	@Autowired
 	private ClientDao clientDao;
-
+	@Autowired
+	private DemandeOuvertureCompteDao demandeOuvertureCompteDao;
+	
 	@Override
 	public Client findClientByName(String name) {
 		return clientDao.findByName(name);
@@ -77,8 +80,7 @@ public class ServiceClientImpl implements ServiceClient {
 
 	@Override
 	public void demandeOuvertureCompte(DemandeOuvertureCompte dOC) {
-		// TODO Auto-generated method stub
-		
+		demandeOuvertureCompteDao.save(dOC);	
 	}
 	
 //	@Override

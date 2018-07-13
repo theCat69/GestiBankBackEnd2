@@ -94,7 +94,7 @@ public class ClientRestController {
 		return new ResponseEntity<Client>(client, HttpStatus.OK);
 	}
 	
-	@PostMapping(value= "/clients/DemandesOuvertureComptes")
+	@PostMapping(value= "/clients/DOCpts")
 	@Transactional
 	public ResponseEntity<Boolean> demandeOuvertureCompte(@RequestBody DemandeOuvertureCompte dOC) {
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);

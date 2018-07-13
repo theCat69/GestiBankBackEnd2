@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wha.model.Client;
 import com.wha.model.Conseiller;
+
 import com.wha.service.ServiceClient;
 import com.wha.service.ServiceConseiller;
 
@@ -24,10 +25,9 @@ public class ConseillerRestController {
 	
 	@Autowired
 	private ServiceConseiller serviceConseiller;
-	
 	@Autowired
 	private ServiceClient serviceClient;
-	
+
 	public ConseillerRestController() {
 	}
 
@@ -99,7 +99,6 @@ public class ConseillerRestController {
 		
 		client.setIdConseiller(conseiller.getId());
 		serviceClient.updateClient(client);
-		
-		return new ResponseEntity<Client>(client, HttpStatus.OK);
-	}
+  }
+  
 }

@@ -20,3 +20,6 @@ INSERT INTO `gestibankbd`.`user` (`USER_TYPE`, `id`, `address`, `dateOfBirth`, `
 --Admin
 INSERT INTO `gestibankbd`.`user` (`USER_TYPE`, `id`, `address`, `dateOfBirth`, `email`, `firstName`, `lastName`, `password`, `phonenumber`, `numeroclient`, `contratStartingDate`, `fonction`, `matricule`) VALUES ('Admin', '4', 'le siege de la banque', '1990-03-11 00:00:00', 'admin@mail.com', 'Admin', 'Admin', 'Admin', '0615789436', NULL, '2017-12-12 00:00:00', 'Admin', '05134679');
 --Table de jointure Conseillers->Clients
+
+INSERT INTO `gestibankbd`.`user_user` (`User_id`, `clients_id`) VALUES ('3', '1'), ('3', '2')
+

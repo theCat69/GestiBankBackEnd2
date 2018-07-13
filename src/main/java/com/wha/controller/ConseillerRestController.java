@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wha.model.Client;
 import com.wha.model.Conseiller;
+
+import com.wha.service.ServiceClient;
 import com.wha.service.ServiceConseiller;
 
 @RestController
@@ -23,6 +25,8 @@ public class ConseillerRestController {
 	
 	@Autowired
 	private ServiceConseiller serviceConseiller;
+	@Autowired
+	private ServiceClient serviceClient;
 
 	public ConseillerRestController() {
 	}
@@ -83,13 +87,18 @@ public class ConseillerRestController {
 		}
 	}
 	
-	@PutMapping(value = "/conseillers/{id}/clients")
+	@PutMapping(value = "/conseillers/{id}/clients/{idCl}")
 	@Transactional
-	public ResponseEntity<Client> attribuerClient(@PathVariable("id") int id, @RequestBody Client client) {
+	public ResponseEntity<Client> attribuerClient(@PathVariable("id") int id, @PathVariable("idCl") int idCl) {
+		
 		Conseiller conseiller = serviceConseiller.findById(id);
+		Client client = serviceClient.findById(idCl);
+		
 		conseiller.getClients().add(client);
 		serviceConseiller.updateConseiller(conseiller);
+		
 		client.setIdConseiller(conseiller.getId());
-		return new ResponseEntity<Client>(client, HttpStatus.OK);
-	}
+		serviceClient.updateClient(client);
+  }
+  
 }

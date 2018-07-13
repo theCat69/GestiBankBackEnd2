@@ -18,6 +18,20 @@ public class Conseiller extends User {
 
 	private String matricule;
 	private Date contratStartingDate;
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=false, fetch=FetchType.EAGER)
+	private List<Client> clients;
+	
+	public Conseiller() {
+		super();
+	}
+
+	public Conseiller(int id, String firstName, String lastName, String email, String password, String phonenumber, String address,
+			Date dateOfBirth, List<Client> clients, String matricule, Date contratStartingDate) {
+		super(id, firstName, lastName, email, password, phonenumber, address, dateOfBirth);
+		this.clients = clients;
+		this.matricule = matricule;
+		this.contratStartingDate = contratStartingDate;
+	}
 	
 	public String getMatricule() {
 		return matricule;
@@ -34,21 +48,6 @@ public class Conseiller extends User {
 	public void setContratStartingDate(Date contratStartingDate) {
 		this.contratStartingDate = contratStartingDate;
 	}
-
-	public Conseiller() {
-		super();
-	}
-
-	public Conseiller(int id, String firstName, String lastName, String email, String password, String phonenumber, String address,
-			Date dateOfBirth, List<Client> clients, String matricule, Date contratStartingDate) {
-		super(id, firstName, lastName, email, password, phonenumber, address, dateOfBirth);
-		this.clients = clients;
-		this.matricule = matricule;
-		this.contratStartingDate = contratStartingDate;
-	}
-
-	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=false, fetch=FetchType.EAGER)
-	private List<Client> clients;
 
 	public Conseiller(List<Client> clients) {
 		super();

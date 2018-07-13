@@ -31,6 +31,7 @@ public class ServiceClientsTest {
 		//récupération du nombre de clent avant ajout
 		int nbInitial = serviceClient.findAllClients().size();
 		//ajout d'un Client
+
 		Client c = new Client(0, null, "TestClient", "TestClient", null, null, null, null, (Integer) null, null, 0);
 		serviceClient.saveClient(c);
 		

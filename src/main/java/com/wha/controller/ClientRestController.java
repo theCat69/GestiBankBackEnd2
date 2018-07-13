@@ -29,8 +29,14 @@ public class ClientRestController {
 	}
 
 	@GetMapping("/clients")
-	public List<Client> getClients() {
-		return serviceClient.findAllClients();
+	public ResponseEntity<List<Client>> getClients() {
+		List<Client> clients= serviceClient.findAllClients();
+		if(clients == null) {
+			return new ResponseEntity<List<Client>>(HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
+		}
+
 	}
 
 	@GetMapping("/clients/{id}")
@@ -48,7 +54,6 @@ public class ClientRestController {
 	@PostMapping(value = "/clients")
 	@Transactional
 	public ResponseEntity<Client> createCustomer(@RequestBody Client client) {
-
 		serviceClient.saveClient(client);
 		return new ResponseEntity<Client>(client, HttpStatus.OK);
 	}
@@ -56,9 +61,12 @@ public class ClientRestController {
 	@DeleteMapping("/clients/{id}")
 	@Transactional
 	public ResponseEntity<Integer> deleteClient(@PathVariable("id") int id) {
-
-		serviceClient.deleteClientById(id);
-		return new ResponseEntity<Integer>(id, HttpStatus.OK);
+		if (serviceClient.findById(id) == null) {
+			return new ResponseEntity<Integer>(id, HttpStatus.NOT_FOUND);
+		} else {
+			serviceClient.deleteClientById(id);
+			return new ResponseEntity<Integer>(id, HttpStatus.OK);
+		}	
 	}
 
 	@DeleteMapping("/clients/deleteallclients")
@@ -71,7 +79,7 @@ public class ClientRestController {
 	@PutMapping("/clients/{id}")
 	@Transactional
 	public ResponseEntity<Boolean> updateClient(@PathVariable("id") int id, @RequestBody Client client) {
-		if (client == null) {
+		if (serviceClient.findById(id) == null) {
 			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
 		} else {
 			serviceClient.updateClientById(id, client);

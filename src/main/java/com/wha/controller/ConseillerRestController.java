@@ -2,8 +2,10 @@ package com.wha.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,56 +14,92 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wha.dao.ConseillerDaoBouchon;
+import com.wha.model.Client;
 import com.wha.model.Conseiller;
+import com.wha.service.ServiceClient;
+import com.wha.service.ServiceConseiller;
 
 @RestController
 public class ConseillerRestController {
-	private ConseillerDaoBouchon conseillerDao;
-
+	
+	@Autowired
+	private ServiceConseiller serviceConseiller;
+	
+	@Autowired
+	private ServiceClient serviceClient;
+	
 	public ConseillerRestController() {
-		this.conseillerDao = new ConseillerDaoBouchon();
 	}
 
 	@GetMapping("/conseillers")
 	public List<Conseiller> getConseillers() {
-		return conseillerDao.list();
+		return serviceConseiller.findAllConseillers();
 	}
 
 	@GetMapping("/conseillers/{id}")
 	public ResponseEntity<Conseiller> getConseiller(@PathVariable("id") int id) {
 
-		Conseiller conseiller = conseillerDao.get(id);
+		Conseiller conseiller = serviceConseiller.findById(id);
 
-		if (null == conseiller) {
+		if (conseiller == null) {
 			return new ResponseEntity<Conseiller>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Conseiller>(conseiller, HttpStatus.OK);
 	}
+	
+	@GetMapping("/conseillers/{id}/clients")
+	public ResponseEntity<List<Client>> getClientsByConseiller(@PathVariable("id") int id) {
+		List<Client> clients = serviceConseiller.findById(id).getClients();
+		if(clients == null) {
+			return new ResponseEntity<List<Client>>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
+	}
 
 	@PostMapping(value = "/conseillers")
+	@Transactional
 	public ResponseEntity<Conseiller> createConseiller(@RequestBody Conseiller conseiller) {
 
-		conseillerDao.create(conseiller);
+		serviceConseiller.save(conseiller);
 		return new ResponseEntity<Conseiller>(conseiller, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/conseillers/{id}")
-	public ResponseEntity<Long> deleteConseiller(@PathVariable Long id) {
-
-		if (null == conseillerDao.delete(id)) {
-			return new ResponseEntity<Long>(HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<Long>(id, HttpStatus.OK);
+	@Transactional
+	public ResponseEntity<Integer> deleteConseiller(@PathVariable Integer id) {
+		if (serviceConseiller.findById(id) == null) {
+			return new ResponseEntity<Integer>(id, HttpStatus.NOT_FOUND);
+		} else {
+			serviceConseiller.deleteConseillerById(id);
+			return new ResponseEntity<Integer>(id, HttpStatus.OK);
+		}	
 	}
 
 	@PutMapping("/conseillers/{id}")
-	public ResponseEntity<Conseiller> updateConseiller(@PathVariable Long id, @RequestBody Conseiller conseiller) {
-		conseiller = conseillerDao.update(id, conseiller);
+	@Transactional
+	public ResponseEntity<Boolean> updateConseiller(@PathVariable Integer id, @RequestBody Conseiller conseiller) {
 
-		if (null == conseiller) {
-			return new ResponseEntity<Conseiller>(HttpStatus.NOT_FOUND);
+		if (serviceConseiller.findById(id) == null) {
+			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+		} else {
+			serviceConseiller.updateConseillerById(id, conseiller);
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		}
-		return new ResponseEntity<Conseiller>(conseiller, HttpStatus.OK);
+	}
+	
+	@PutMapping(value = "/conseillers/{id}/clients/{idCl}")
+	@Transactional
+	public ResponseEntity<Client> attribuerClient(@PathVariable("id") int id, @PathVariable("idCl") int idCl) {
+		
+		Conseiller conseiller = serviceConseiller.findById(id);
+		Client client = serviceClient.findById(idCl);
+		
+		conseiller.getClients().add(client);
+		serviceConseiller.updateConseiller(conseiller);
+		
+		client.setIdConseiller(conseiller.getId());
+		serviceClient.updateClient(client);
+		
+		return new ResponseEntity<Client>(client, HttpStatus.OK);
 	}
 }

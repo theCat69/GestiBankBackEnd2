@@ -91,6 +91,7 @@ public class ConseillerRestController {
 	@Transactional
 	public ResponseEntity<Client> attribuerClient(@PathVariable("id") int id, @PathVariable("idCl") int idCl) {
 		
+		
 		Conseiller conseiller = serviceConseiller.findById(id);
 		Client client = serviceClient.findById(idCl);
 		
@@ -99,6 +100,13 @@ public class ConseillerRestController {
 		
 		client.setIdConseiller(conseiller.getId());
 		serviceClient.updateClient(client);
-  }
+		
+		if (conseiller == null || client == null) {
+			return new ResponseEntity<Client>(client, HttpStatus.NOT_FOUND);
+		}
+		else {
+			return new ResponseEntity<Client>(client, HttpStatus.OK);
+		}
+	}
   
 }

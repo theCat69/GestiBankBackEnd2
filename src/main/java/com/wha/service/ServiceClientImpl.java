@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.wha.dao.ClientDao;
 import com.wha.model.Client;
+import com.wha.model.DemandeOuvertureCompte;
 
 @Service("serviceClientImpl")
 public class ServiceClientImpl implements ServiceClient {
@@ -73,5 +74,16 @@ public class ServiceClientImpl implements ServiceClient {
 	public void deleteAllClients() {
 		clientDao.deleteAllClients();
 	}
+
+	@Override
+	public void demandeOuvertureCompte(DemandeOuvertureCompte dOC) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+//	@Override
+//	public void demandeOuvertureCompte(DemandeOuvertureCompte dOC) {
+//		clientDao.addDemandeOuvertureCompte(dOC);
+//	}
 
 }

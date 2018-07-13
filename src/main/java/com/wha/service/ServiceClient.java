@@ -3,6 +3,7 @@ package com.wha.service;
 import java.util.List;
 
 import com.wha.model.Client;
+import com.wha.model.DemandeOuvertureCompte;
 
 public interface ServiceClient {
 
@@ -21,5 +22,7 @@ public interface ServiceClient {
 	void deleteClientById(int id);
 
 	void updateClientById(int id, Client client);
+
+	void demandeOuvertureCompte(DemandeOuvertureCompte dOC);
 
 }

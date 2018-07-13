@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wha.model.Client;
 import com.wha.model.Compte;
+import com.wha.model.DemandeOuvertureCompte;
 import com.wha.service.ServiceClient;
 
 @RestController
@@ -100,4 +101,11 @@ public class ClientRestController {
 		serviceClient.updateClient(client);
 		return new ResponseEntity<Client>(client, HttpStatus.OK);
 	}
+	
+	@PostMapping(value= "/clients/DOCpts")
+	@Transactional
+	public ResponseEntity<Boolean> demandeOuvertureCompte(@RequestBody DemandeOuvertureCompte dOC) {
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+	}
+	
 }

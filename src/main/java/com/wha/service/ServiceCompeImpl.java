@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wha.dao.CompteDao;
-import com.wha.model.Client;
 import com.wha.model.Compte;
 
 @Service("serviceCompteImpl")

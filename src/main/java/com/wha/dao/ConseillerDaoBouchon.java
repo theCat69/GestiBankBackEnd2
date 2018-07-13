@@ -1,11 +1,11 @@
 package com.wha.dao;
 
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 import com.wha.model.Client;
-import com.wha.model.Compte;
+
 import com.wha.model.Conseiller;
 
 public class ConseillerDaoBouchon {

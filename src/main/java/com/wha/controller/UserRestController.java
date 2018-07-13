@@ -27,8 +27,10 @@ public class UserRestController {
 
 	@PostMapping("/users/connexion")
 	public ResponseEntity<User> connexion(@RequestBody String form) throws JsonParseException, JsonMappingException, IOException{
+		
 		ObjectMapper mapper = new ObjectMapper();
 		User test = mapper.readValue(form, User.class);
+		
 		User user = this.serviceUser.connectUser(test.getEmail(),test.getPassword());
 		try {
 		return new ResponseEntity<User>(user, HttpStatus.OK);

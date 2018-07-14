@@ -24,5 +24,8 @@ public interface ServiceClient {
 	void updateClientById(int id, Client client);
 
 	void demandeOuvertureCompte(DemandeOuvertureCompte dOC);
-
+	
+	Long findNbOfNotAttClients();
+	
+	List<Client> findClientsNotAttributed();
 }

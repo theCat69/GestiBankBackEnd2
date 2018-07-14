@@ -91,4 +91,20 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 		}
 	}
 
+	@Override
+	public Long findNbOfNotAttClients() {
+		String rqt = "SELECT COUNT(c) FROM Client c where c.idConseiller = ?1";
+		Query q = getEntityManager().createQuery(rqt).setParameter(1, 0);
+		Long nbOfNotAttClients = (Long) q.getSingleResult();
+		return nbOfNotAttClients;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Client> findClientsNotAttributed() {
+		String rqt = "SELECT c FROM Client c where c.idConseiller = ?1";
+		Query q = getEntityManager().createQuery(rqt).setParameter(1, 0);
+		return (List<Client>) q.getResultList();
+	}
+
 }

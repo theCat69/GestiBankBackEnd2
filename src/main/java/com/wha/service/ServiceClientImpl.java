@@ -82,6 +82,18 @@ public class ServiceClientImpl implements ServiceClient {
 	public void demandeOuvertureCompte(DemandeOuvertureCompte dOC) {
 		demandeOuvertureCompteDao.save(dOC);	
 	}
+
+	@Override
+	public Long findNbOfNotAttClients() {
+		return clientDao.findNbOfNotAttClients();
+	}
+
+	@Override
+	public List<Client> findClientsNotAttributed() {
+		return clientDao.findClientsNotAttributed();
+	}
+	
+	
 	
 //	@Override
 //	public void demandeOuvertureCompte(DemandeOuvertureCompte dOC) {

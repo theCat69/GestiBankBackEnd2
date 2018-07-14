@@ -7,10 +7,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 
 
 @SuppressWarnings("serial")
 @Entity
+@Table(name="Conseiller")
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 //@DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING)
 //@DiscriminatorValue("CONSEILLER")

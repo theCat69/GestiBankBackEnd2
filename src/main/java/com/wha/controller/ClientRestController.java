@@ -50,7 +50,24 @@ public class ClientRestController {
 			return new ResponseEntity<Client>(client, HttpStatus.OK);
 		}
 	}
+	
+	@GetMapping("/clients/nbnotattributed")
+	public ResponseEntity<Long> getNbOfNotAttributedClient() {
+		Long nb = serviceClient.findNbOfNotAttClients();
+		return new ResponseEntity<Long>(nb, HttpStatus.OK);
+	}
+	
+	@GetMapping("clients/notAttributed")
+	public ResponseEntity<List<Client>> getClientsNotAttributed() {
+		List<Client> clients= serviceClient.findClientsNotAttributed();
+		if(clients == null) {
+			return new ResponseEntity<List<Client>>(HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
+		}
 
+	}
+	
 	@PostMapping(value = "/clients")
 	@Transactional
 	public ResponseEntity<Client> createCustomer(@RequestBody Client client) {

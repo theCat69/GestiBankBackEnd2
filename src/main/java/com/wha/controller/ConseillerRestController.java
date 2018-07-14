@@ -87,16 +87,16 @@ public class ConseillerRestController {
 		}
 	}
 	
-	@PutMapping(value = "/conseillers/{id}/clients/{idCl}")
+	@PutMapping(value = "/conseillers/clients/{id}")
 	@Transactional
-	public ResponseEntity<Client> attribuerClient(@PathVariable("id") int id, @PathVariable("idCl") int idCl) {
+	public ResponseEntity<Client> attribuerClient(@PathVariable("id") int id, @RequestBody Conseiller conseiller) {
 		
+
+		Conseiller trueConseiller = serviceConseiller.findById(conseiller.getId());
+		Client client = serviceClient.findById(id);
 		
-		Conseiller conseiller = serviceConseiller.findById(id);
-		Client client = serviceClient.findById(idCl);
-		
-		conseiller.getClients().add(client);
-		serviceConseiller.updateConseiller(conseiller);
+		trueConseiller.getClients().add(client);
+		serviceConseiller.updateConseiller(trueConseiller);
 		
 		client.setIdConseiller(conseiller.getId());
 		serviceClient.updateClient(client);

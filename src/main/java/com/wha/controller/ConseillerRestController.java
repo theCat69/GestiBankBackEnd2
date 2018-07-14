@@ -91,13 +91,11 @@ public class ConseillerRestController {
 	@Transactional
 	public ResponseEntity<Client> attribuerClient(@PathVariable("id") int id, @RequestBody Conseiller conseiller) {
 		
-		System.out.println("i search Cons");
+
 		Conseiller trueConseiller = serviceConseiller.findById(conseiller.getId());
-		System.out.println("i finished search Cons");
-		
 		Client client = serviceClient.findById(id);
 		
-		conseiller.getClients().add(client);
+		trueConseiller.getClients().add(client);
 		serviceConseiller.updateConseiller(trueConseiller);
 		
 		client.setIdConseiller(conseiller.getId());

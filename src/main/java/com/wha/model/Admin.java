@@ -3,13 +3,12 @@ package com.wha.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 
 @SuppressWarnings("serial")
 @Entity
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//@DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING)
-//@DiscriminatorValue("Admin")
+@Table(name="Admin")
 public class Admin extends User {
 	private String matricule;
 	private String fonction;

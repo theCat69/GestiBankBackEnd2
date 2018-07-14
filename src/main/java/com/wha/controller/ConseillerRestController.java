@@ -91,17 +91,18 @@ public class ConseillerRestController {
 	@Transactional
 	public ResponseEntity<Client> attribuerClient(@PathVariable("id") int id, @RequestBody Conseiller conseiller) {
 		
+		int idCons = conseiller.getId();
 
-		Conseiller trueConseiller = serviceConseiller.findById(conseiller.getId());
+		Conseiller trueConseiller = serviceConseiller.findById(idCons);
 		Client client = serviceClient.findById(id);
 		
 		trueConseiller.getClients().add(client);
 		serviceConseiller.updateConseiller(trueConseiller);
 		
-		client.setIdConseiller(conseiller.getId());
+		client.setIdConseiller(idCons);
 		serviceClient.updateClient(client);
 		
-		if (conseiller == null || client == null) {
+		if (trueConseiller == null || client == null) {
 			return new ResponseEntity<Client>(client, HttpStatus.NOT_FOUND);
 		}
 		else {

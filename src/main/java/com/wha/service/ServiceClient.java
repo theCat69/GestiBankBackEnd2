@@ -28,4 +28,6 @@ public interface ServiceClient {
 	Long findNbOfNotAttClients();
 	
 	List<Client> findClientsNotAttributed();
+	
+	Long getNbOfClients();
 }

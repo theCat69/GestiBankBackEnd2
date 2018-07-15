@@ -19,4 +19,6 @@ Conseiller findById(int id);
 	void updateConseiller(Conseiller user);
 	
 	Conseiller findByMatricule(int matricule);
+	
+	Long getNbOfConseillers();
 }

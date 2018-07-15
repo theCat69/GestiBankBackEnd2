@@ -130,6 +130,23 @@ public class ConseillerRestController {
 		}
 		else {
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-		}	}
+		}		
+	}
+	
+	@GetMapping(value= "/conseillers/getNb")
+	public ResponseEntity<Long> getNbOfConseillers() {
+		
+		Long nbOfConseiller = serviceConseiller.getNbOfConseillers();
+		if (nbOfConseiller == null) {
+			return new ResponseEntity<Long>(nbOfConseiller, HttpStatus.NOT_FOUND);
+		}
+		else {
+			return new ResponseEntity<Long>(nbOfConseiller, HttpStatus.OK);
+		}
+		
+		
+	}
+	
+	
   
 }

@@ -19,4 +19,6 @@ public interface ServiceConseiller {
 	void deleteConseillerById(int id);
 
 	void updateConseillerById(int id, Conseiller conseiller);
+	
+	Long getNbOfConseillers();
 }

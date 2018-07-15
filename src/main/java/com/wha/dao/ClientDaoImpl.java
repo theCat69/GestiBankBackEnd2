@@ -110,4 +110,12 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 		return (List<Client>) q.getResultList();
 	}
 
+	@Override
+	public Long getNbOfClients() {
+		String rqt = "SELECT COUNT(c) FROM Client c";
+		Query q = getEntityManager().createQuery(rqt);
+		Long nbOfClients = (Long) q.getSingleResult();
+		return nbOfClients;
+	}
+
 }

@@ -35,6 +35,9 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 	@Override
 	public void deleteClientById(int id) {
 		delete(getByKey(id));
+		/*String rqt = "delete from Client c where c.id=?1";
+		Query q = getEntityManager().createQuery(rqt).setParameter(1, id);
+		int count = q.executeUpdate();*/
 	}
 
 	@SuppressWarnings("unchecked")

@@ -14,9 +14,6 @@ import javax.persistence.Table;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="Conseiller")
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//@DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING)
-//@DiscriminatorValue("CONSEILLER")
 public class Conseiller extends User {
 
 	private String matricule;

@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wha.dao.ClientDao;
+import com.wha.dao.ConseillerDao;
 import com.wha.dao.DemandeOuvertureCompteDao;
 import com.wha.model.Client;
+import com.wha.model.Conseiller;
 import com.wha.model.DemandeOuvertureCompte;
 
 @Service("serviceClientImpl")
@@ -18,6 +20,8 @@ public class ServiceClientImpl implements ServiceClient {
 	private ClientDao clientDao;
 	@Autowired
 	private DemandeOuvertureCompteDao demandeOuvertureCompteDao;
+	@Autowired
+	private ConseillerDao conseillerDao;
 	
 	@Override
 	public Client findClientByName(String name) {
@@ -57,8 +61,18 @@ public class ServiceClientImpl implements ServiceClient {
 
 	@Override
 	public void deleteClientById(int id) {
+		Client client = clientDao.findById(id);
+		int idCons = client.getIdConseiller();
+		if (idCons == 0) {
+			clientDao.deleteClientById(id);
+			}
+		else {
+		Conseiller conseiller = conseillerDao.findById(idCons);
+		conseiller.getClients().remove(client);
+		client.setIdConseiller(0);
+		conseillerDao.updateConseiller(conseiller);
 		clientDao.deleteClientById(id);
-
+		}
 	}
 
 	@Override

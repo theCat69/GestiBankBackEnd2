@@ -109,5 +109,27 @@ public class ConseillerRestController {
 			return new ResponseEntity<Client>(client, HttpStatus.OK);
 		}
 	}
+	
+	@PutMapping(value = "/conseillers/clients/desatribue/{id}")
+	@Transactional
+	public ResponseEntity<Boolean> desattribuerClient(@PathVariable("id") int id, @RequestBody Client client) {
+		
+		int idCl = client.getId();
+
+		Conseiller conseiller = serviceConseiller.findById(id);
+		Client trueClient = serviceClient.findById(idCl);
+		
+		conseiller.getClients().remove(trueClient);
+		serviceConseiller.updateConseiller(conseiller);
+		
+		trueClient.setIdConseiller(0);
+		serviceClient.updateClient(trueClient);
+		
+		if (conseiller == null || trueClient == null) {
+			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+		}
+		else {
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		}	}
   
 }

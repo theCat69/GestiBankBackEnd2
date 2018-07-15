@@ -122,6 +122,10 @@ public class ClientRestController {
 	@PostMapping(value= "/clients/DOCpts")
 	@Transactional
 	public ResponseEntity<Boolean> demandeOuvertureCompte(@RequestBody DemandeOuvertureCompte dOC) {
+		serviceClient.demandeOuvertureCompte(dOC);
+		if (dOC == null) {
+			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_MODIFIED);
+		}
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 	

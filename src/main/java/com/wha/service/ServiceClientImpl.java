@@ -106,6 +106,11 @@ public class ServiceClientImpl implements ServiceClient {
 	public List<Client> findClientsNotAttributed() {
 		return clientDao.findClientsNotAttributed();
 	}
+
+	@Override
+	public Long getNbOfClients() {
+		return clientDao.getNbOfClients();
+	}
 	
 	
 	

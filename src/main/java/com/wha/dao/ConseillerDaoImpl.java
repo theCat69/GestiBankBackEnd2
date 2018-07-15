@@ -68,6 +68,14 @@ public class ConseillerDaoImpl extends AbstractDao<Integer, Conseiller> implemen
 		}
 	}
 
+	@Override
+	public Long getNbOfConseillers() {
+		String rqt = "SELECT COUNT(c) FROM Conseiller c";
+		Query q = getEntityManager().createQuery(rqt);
+		Long nbOfConseillers = (Long) q.getSingleResult();
+		return nbOfConseillers;
+	}
 
+	
 
 }

@@ -122,11 +122,26 @@ public class ClientRestController {
 	@PostMapping(value= "/clients/DOCpts")
 	@Transactional
 	public ResponseEntity<Boolean> demandeOuvertureCompte(@RequestBody DemandeOuvertureCompte dOC) {
+		try {
 		serviceClient.demandeOuvertureCompte(dOC);
 		if (dOC == null) {
 			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_MODIFIED);
 		}
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		}
+		catch (Exception e)
+		{
+			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_MODIFIED);
+		}
 	}
 	
+	@GetMapping(value="/clients/getNb")
+	public ResponseEntity<Long> getNbOfClients() {
+		Long nbOfClients = serviceClient.getNbOfClients();
+		if (nbOfClients == null) {
+			return new ResponseEntity<Long>(nbOfClients, HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<Long>(nbOfClients, HttpStatus.OK);
+		}
+	}
 }

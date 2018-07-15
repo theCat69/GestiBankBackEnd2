@@ -27,4 +27,7 @@ public interface ClientDao {
 	Long findNbOfNotAttClients();
 	
 	List<Client> findClientsNotAttributed();
+	
+	Long getNbOfClients();
+	
 }

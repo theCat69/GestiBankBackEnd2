@@ -62,6 +62,11 @@ public class ServiceConseillerImpl implements ServiceConseiller {
 		conseiller.setContratStartingDate(oldConseiller.getContratStartingDate());
 		conseillerDao.updateConseiller(conseiller);
 	}
+
+	@Override
+	public Long getNbOfConseillers() {
+		return conseillerDao.getNbOfConseillers();
+	}
 	
 }
 

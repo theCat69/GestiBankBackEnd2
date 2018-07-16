@@ -2,6 +2,7 @@ package com.wha.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 
@@ -22,7 +23,7 @@ public class Client extends User {
 	
 	@JsonIgnore
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=false, fetch=FetchType.EAGER)
-	private List<Compte> comptes;
+	private Set<Compte> comptes;
 	
 	//Todo a supprimer
 	private int idConseiller;
@@ -33,7 +34,7 @@ public class Client extends User {
 
 	
 	public Client(int id, String firstName, String lastName, String email, String password, String phonenumber,
-			String address, Date dateOfBirth, int numeroclient, List<Compte> comptes, int idconseiller) {
+			String address, Date dateOfBirth, int numeroclient, Set<Compte> comptes, int idconseiller) {
 		super(id, firstName, lastName, email, password, phonenumber, address, dateOfBirth);
 		this.numeroclient = numeroclient;
 		this.comptes = comptes;
@@ -41,11 +42,11 @@ public class Client extends User {
 	}
 
 
-	public List<Compte> getComptes() {
+	public Set<Compte> getComptes() {
 		return comptes;
 	}
 
-	public void setComptes(List<Compte> comptes) {
+	public void setComptes(Set<Compte> comptes) {
 		this.comptes = comptes;
 	}
 

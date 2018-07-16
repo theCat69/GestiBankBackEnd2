@@ -35,7 +35,7 @@ public class CompteRestController {
 
 	@PutMapping("/comptes/{rib}/operations")
 	@Transactional
-	public ResponseEntity<Compte> createCompte(@PathVariable("rib") Long rib, @RequestBody Operation operation) {
+	public ResponseEntity<Compte> createOperation(@PathVariable("rib") Long rib, @RequestBody Operation operation) {
 		Compte compte = serviceCompte.findByRib(rib);
 		if (compte == null) {
 			return new ResponseEntity<Compte>(compte, HttpStatus.NOT_FOUND);

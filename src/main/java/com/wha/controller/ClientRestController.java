@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wha.model.Client;
 import com.wha.model.Compte;
+import com.wha.model.DemandeOuvertureCompte;
 import com.wha.service.ServiceClient;
 
 @RestController
@@ -28,8 +29,14 @@ public class ClientRestController {
 	}
 
 	@GetMapping("/clients")
-	public List<Client> getClients() {
-		return serviceClient.findAllClients();
+	public ResponseEntity<List<Client>> getClients() {
+		List<Client> clients= serviceClient.findAllClients();
+		if(clients == null) {
+			return new ResponseEntity<List<Client>>(HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
+		}
+
 	}
 
 	@GetMapping("/clients/{id}")
@@ -43,11 +50,27 @@ public class ClientRestController {
 			return new ResponseEntity<Client>(client, HttpStatus.OK);
 		}
 	}
+	
+	@GetMapping("/clients/nbnotattributed")
+	public ResponseEntity<Long> getNbOfNotAttributedClient() {
+		Long nb = serviceClient.findNbOfNotAttClients();
+		return new ResponseEntity<Long>(nb, HttpStatus.OK);
+	}
+	
+	@GetMapping("clients/notAttributed")
+	public ResponseEntity<List<Client>> getClientsNotAttributed() {
+		List<Client> clients= serviceClient.findClientsNotAttributed();
+		if(clients == null) {
+			return new ResponseEntity<List<Client>>(HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
+		}
 
+	}
+	
 	@PostMapping(value = "/clients")
 	@Transactional
 	public ResponseEntity<Client> createCustomer(@RequestBody Client client) {
-
 		serviceClient.saveClient(client);
 		return new ResponseEntity<Client>(client, HttpStatus.OK);
 	}
@@ -55,9 +78,12 @@ public class ClientRestController {
 	@DeleteMapping("/clients/{id}")
 	@Transactional
 	public ResponseEntity<Integer> deleteClient(@PathVariable("id") int id) {
-
-		serviceClient.deleteClientById(id);
-		return new ResponseEntity<Integer>(id, HttpStatus.OK);
+		if (serviceClient.findById(id) == null) {
+			return new ResponseEntity<Integer>(id, HttpStatus.NOT_FOUND);
+		} else {
+			serviceClient.deleteClientById(id);
+			return new ResponseEntity<Integer>(id, HttpStatus.OK);
+		}	
 	}
 
 	@DeleteMapping("/clients/deleteallclients")
@@ -70,7 +96,7 @@ public class ClientRestController {
 	@PutMapping("/clients/{id}")
 	@Transactional
 	public ResponseEntity<Boolean> updateClient(@PathVariable("id") int id, @RequestBody Client client) {
-		if (client == null) {
+		if (serviceClient.findById(id) == null) {
 			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
 		} else {
 			serviceClient.updateClientById(id, client);
@@ -84,12 +110,67 @@ public class ClientRestController {
 		return client.getComptes();
 	}
 
-	@PutMapping(value = "/clients/{id}/comptes")
+	@PutMapping("/clients/{id}/comptes")
 	@Transactional
 	public ResponseEntity<Client> createCompte(@PathVariable("id") int id, @RequestBody Compte compte) {
 		Client client = serviceClient.findById(id);
-		client.getComptes().add(compte);
-		serviceClient.updateClient(client);
-		return new ResponseEntity<Client>(client, HttpStatus.OK);
+		if (client == null) {
+			return new ResponseEntity<Client>(client, HttpStatus.NOT_FOUND);
+		} else {
+			if (compte == null) {
+				return new ResponseEntity<Client>(client, HttpStatus.NO_CONTENT);
+			} else {
+				client.getComptes().add(compte);
+				serviceClient.updateClient(client);
+				System.out.println(client);
+				return new ResponseEntity<Client>(client, HttpStatus.OK);
+			}
+		}
+
+	}
+	
+	@DeleteMapping("/clients/{id}/comptes")
+	@Transactional
+	public ResponseEntity<Client> deleteCompte(@PathVariable("id") int id, @RequestBody Compte compte) {
+		Client client = serviceClient.findById(id);
+		if (client == null) {
+			return new ResponseEntity<Client>(client, HttpStatus.NOT_FOUND);
+		} else {
+			if (compte == null) {
+				return new ResponseEntity<Client>(client, HttpStatus.NO_CONTENT);
+			} else {
+				client.getComptes().remove(compte);
+				serviceClient.updateClient(client);
+				System.out.println(client);
+				return new ResponseEntity<Client>(client, HttpStatus.OK);
+			}
+		}
+
+	}
+	
+	@PostMapping(value= "/clients/DOCpts")
+	@Transactional
+	public ResponseEntity<Boolean> demandeOuvertureCompte(@RequestBody DemandeOuvertureCompte dOC) {
+		try {
+		serviceClient.demandeOuvertureCompte(dOC);
+		if (dOC == null) {
+			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_MODIFIED);
+		}
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		}
+		catch (Exception e)
+		{
+			return new ResponseEntity<Boolean>(HttpStatus.NOT_MODIFIED);
+		}
+	}
+	
+	@GetMapping(value="/clients/getNb")
+	public ResponseEntity<Long> getNbOfClients() {
+		Long nbOfClients = serviceClient.getNbOfClients();
+		if (nbOfClients == null) {
+			return new ResponseEntity<Long>(nbOfClients, HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<Long>(nbOfClients, HttpStatus.OK);
+		}
 	}
 }

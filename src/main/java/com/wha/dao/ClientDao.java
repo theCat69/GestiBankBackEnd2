@@ -23,4 +23,11 @@ public interface ClientDao {
 	Client updateClientById(int id, Client user);
 	
 	Client findByNumeroClient(int numeroclient);
+	
+	Long findNbOfNotAttClients();
+	
+	List<Client> findClientsNotAttributed();
+	
+	Long getNbOfClients();
+	
 }

@@ -7,14 +7,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wha.dao.ClientDao;
+import com.wha.dao.ConseillerDao;
+import com.wha.dao.DemandeOuvertureCompteDao;
 import com.wha.model.Client;
+import com.wha.model.Conseiller;
+import com.wha.model.DemandeOuvertureCompte;
 
 @Service("serviceClientImpl")
 public class ServiceClientImpl implements ServiceClient {
 
 	@Autowired
 	private ClientDao clientDao;
-
+	@Autowired
+	private DemandeOuvertureCompteDao demandeOuvertureCompteDao;
+	@Autowired
+	private ConseillerDao conseillerDao;
+	
 	@Override
 	public Client findClientByName(String name) {
 		return clientDao.findByName(name);
@@ -53,8 +61,23 @@ public class ServiceClientImpl implements ServiceClient {
 
 	@Override
 	public void deleteClientById(int id) {
+		Client client = clientDao.findById(id);
+		int idCons = client.getIdConseiller();
+		Conseiller conseiller = conseillerDao.findById(idCons);
+		conseiller.getClients().remove(client);
+		conseillerDao.save(conseiller);
+		
+		
+	/*	if (idCons == 0) {
+			clientDao.deleteClientById(id);
+			}
+		else {
+		Conseiller conseiller = conseillerDao.findById(idCons);
+		conseiller.getClients().remove(client);
+		client.setIdConseiller(0);
+		conseillerDao.updateConseiller(conseiller);
 		clientDao.deleteClientById(id);
-
+		}*/
 	}
 
 	@Override
@@ -73,5 +96,32 @@ public class ServiceClientImpl implements ServiceClient {
 	public void deleteAllClients() {
 		clientDao.deleteAllClients();
 	}
+
+	@Override
+	public void demandeOuvertureCompte(DemandeOuvertureCompte dOC) {
+		demandeOuvertureCompteDao.save(dOC);	
+	}
+
+	@Override
+	public Long findNbOfNotAttClients() {
+		return clientDao.findNbOfNotAttClients();
+	}
+
+	@Override
+	public List<Client> findClientsNotAttributed() {
+		return clientDao.findClientsNotAttributed();
+	}
+
+	@Override
+	public Long getNbOfClients() {
+		return clientDao.getNbOfClients();
+	}
+	
+	
+	
+//	@Override
+//	public void demandeOuvertureCompte(DemandeOuvertureCompte dOC) {
+//		clientDao.addDemandeOuvertureCompte(dOC);
+//	}
 
 }

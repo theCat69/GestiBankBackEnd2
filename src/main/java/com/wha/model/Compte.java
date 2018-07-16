@@ -75,4 +75,10 @@ public class Compte {
 	public void setSolde(Long solde) {
 		this.solde = solde;
 	}
+	
+	@Override
+	public String toString() {
+		return "rib="+rib+", solde="+solde+", date="+dateCreation+", description="+description ;
+		
+	}
 }

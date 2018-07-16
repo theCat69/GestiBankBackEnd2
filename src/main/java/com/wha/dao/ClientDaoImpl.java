@@ -35,6 +35,9 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 	@Override
 	public void deleteClientById(int id) {
 		delete(getByKey(id));
+		/*String rqt = "delete from Client c where c.id=?1";
+		Query q = getEntityManager().createQuery(rqt).setParameter(1, id);
+		int count = q.executeUpdate();*/
 	}
 
 	@SuppressWarnings("unchecked")
@@ -89,6 +92,30 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 		} else {
 			return client;
 		}
+	}
+
+	@Override
+	public Long findNbOfNotAttClients() {
+		String rqt = "SELECT COUNT(c) FROM Client c where c.idConseiller = ?1";
+		Query q = getEntityManager().createQuery(rqt).setParameter(1, 0);
+		Long nbOfNotAttClients = (Long) q.getSingleResult();
+		return nbOfNotAttClients;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Client> findClientsNotAttributed() {
+		String rqt = "SELECT c FROM Client c where c.idConseiller = ?1";
+		Query q = getEntityManager().createQuery(rqt).setParameter(1, 0);
+		return (List<Client>) q.getResultList();
+	}
+
+	@Override
+	public Long getNbOfClients() {
+		String rqt = "SELECT COUNT(c) FROM Client c";
+		Query q = getEntityManager().createQuery(rqt);
+		Long nbOfClients = (Long) q.getSingleResult();
+		return nbOfClients;
 	}
 
 }

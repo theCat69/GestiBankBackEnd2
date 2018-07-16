@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wha.dao.CompteDao;
-import com.wha.model.Client;
 import com.wha.model.Compte;
 
 @Service("serviceCompteImpl")
@@ -24,7 +23,7 @@ public class ServiceCompeImpl implements ServiceCompte {
 	public void save(Compte compte) {
 		boolean ribExist = true;
 		while (ribExist) {
-			Long rib = (Long) Math.round(Math.random() * (9999999 - 1111111));
+			Long rib = (Long) Math.round(Math.random() * 8888888 + 1111111);
 			Compte numeroRibExist = compteDao.findByRib(rib);
 			if (numeroRibExist == null) {
 				compte.setRib(rib);

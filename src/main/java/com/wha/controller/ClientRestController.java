@@ -87,6 +87,7 @@ public class ClientRestController {
 		}	
 	}
 
+	//For dev fun :p
 	@DeleteMapping("/clients/deleteallclients")
 	@Transactional
 	public ResponseEntity<String> deleteAllClient() {

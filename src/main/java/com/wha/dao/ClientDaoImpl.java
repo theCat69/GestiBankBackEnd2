@@ -74,6 +74,7 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 
 	
 	//fonction permettant de récuperer le client par numéro client et de ne pas faire planter l'appli si la requette est null
+	//utile au moment de la création 
 	//grace au try/catch
 	@Override
 	public Client findByNumeroClient(int numeroclient) {

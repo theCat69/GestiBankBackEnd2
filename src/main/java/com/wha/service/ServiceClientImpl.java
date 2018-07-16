@@ -1,7 +1,8 @@
 package com.wha.service;
 
-import java.util.Collections;
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -70,13 +71,13 @@ public class ServiceClientImpl implements ServiceClient {
 		Conseiller conseiller = conseillerDao.findById(idCons);
 		conseiller.getClients().remove(client);
 		conseillerDao.save(conseiller);*/
+		
 		Client client = clientDao.findById(id);
 		int idCons = client.getIdConseiller();
 		if (idCons == 0) {
 			clientDao.deleteClientById(id);
 			}
 		else {
-		
 		Conseiller conseiller = conseillerDao.findById(idCons);
 		conseiller.getClients().remove(client);
 		client.setIdConseiller(0);
@@ -121,23 +122,45 @@ public class ServiceClientImpl implements ServiceClient {
 	public Long getNbOfClients() {
 		return clientDao.getNbOfClients();
 	}
-
+	
+	// !!! Renvoie une valeur null attaché dans le Set !!! Mais pourquoi ???
 	@Override
 	public Set<Compte> getCompteCourantRemenuere(String description, int id) {
+		
 		Client client = clientDao.findById(id);
-		System.out.println("j'ai récupe client");
 		Set<Compte> comptes = client.getComptes();
-		Iterator<Compte> iterator = comptes.iterator();
+		Compte[] arrayComptes = (comptes.toArray(new Compte[comptes.size()]));
+		Compte[] arrayRefinedComptes = new Compte[comptes.size()];
+		int j = 0;
+		for (int i=0; i<arrayComptes.length; i++)
+		{
+			if(arrayComptes[i].getDescription().equals(description)) {
+				arrayRefinedComptes[j] = arrayComptes[i];
+				j++;
+			}
+		}
+		//List<Compte> ListRefinedCompte = Arrays.asList(arrayRefinedComptes);
+		ArrayList<Compte> ListRefinedCompte = new ArrayList<Compte>();
+		for (Compte c : arrayRefinedComptes) {
+		    if (c != null) {
+		    	ListRefinedCompte.add(c);
+		    }
+		}
+		Set<Compte> refinedComptes = new HashSet<Compte> (ListRefinedCompte);
+		return refinedComptes;
+		
+		// --- what i wished i could do ;s ---
+		//Set<Compte> refinedComptes = comptes.stream().filter(c - > c.getDescription()).equals(description).collect(Collectors.toList());
+
+		// --- What i tried to do to get still something short and sexy ! ---
+		/*Iterator<Compte> iterator = comptes.iterator();
 		Set<Compte> refinedComptes = Collections.emptySet();
 		while(iterator.hasNext())
 		{
-			//if(comptesc.getDescription().equals(description)) {
+			if(comptes.next().getDescription().equals(description)) {
 				refinedComptes.add(iterator.next());
-			//}
-			
-		}
-		System.out.println(refinedComptes.toString());
-		return refinedComptes;
+			}		
+		}*/
 	}
 	
 	

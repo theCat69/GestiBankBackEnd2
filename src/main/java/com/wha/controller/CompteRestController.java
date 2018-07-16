@@ -36,6 +36,8 @@ public class CompteRestController {
 	@PutMapping("/comptes/{rib}/operations")
 	@Transactional
 	public ResponseEntity<Compte> createOperation(@PathVariable("rib") Long rib, @RequestBody Operation operation) {
+		System.out.println("******** ajout d'opération ********");
+		System.out.println("Opération = " + operation);
 		Compte compte = serviceCompte.findByRib(rib);
 		if (compte == null) {
 			return new ResponseEntity<Compte>(compte, HttpStatus.NOT_FOUND);
@@ -44,6 +46,7 @@ public class CompteRestController {
 				return new ResponseEntity<Compte>(compte, HttpStatus.NO_CONTENT);
 			} else {
 				compte.getOperations().add(operation);
+				serviceCompte.calculSolde(rib, operation);
 				serviceCompte.updateCompte(compte);
 				return new ResponseEntity<Compte>(compte, HttpStatus.OK);
 			}

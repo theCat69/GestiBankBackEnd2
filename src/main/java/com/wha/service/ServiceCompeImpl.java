@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.wha.dao.CompteDao;
 import com.wha.model.Compte;
+import com.wha.model.Operation;
 
 @Service("serviceCompteImpl")
 public class ServiceCompeImpl implements ServiceCompte {
@@ -57,5 +58,23 @@ public class ServiceCompeImpl implements ServiceCompte {
 	public Compte updateCompteByRib(Long rib, Compte compte) {
 		return compteDao.updateCompteByRib(rib, compte);
 	}
+
+	@Override
+	public Compte calculSolde(Long rib, Operation operation) {
+		Compte compte = compteDao.findByRib(rib);
+		Long res = compte.getSolde();
+		for(Operation o : compte.getOperations()) {
+			if(o.getClass().equals("Depot")) {
+				res += o.getSomme();
+			}
+			else {
+				res -= o.getSomme();
+			}
+		}
+		compte.setSolde(res);
+		return compte;
+	}
+	
+	
 
 }

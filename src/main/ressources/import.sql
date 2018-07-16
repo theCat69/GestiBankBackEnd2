@@ -1,6 +1,6 @@
 --Clients
-INSERT INTO `gestibankbd`.`user` (`USER_TYPE`, `id`, `address`, `dateOfBirth`, `email`, `password`, `firstName`, `lastName`, `phonenumber`, `numeroclient`,`idConseiller`) VALUES ('Client', '1', '19 rue Danton', '2018-07-10 00:00:00', 'vadcard.felix@gmail.com', 'lili','Felix', 'Vadard', '613938746', '1589','0');
-INSERT INTO `gestibankbd`.`user` (`USER_TYPE`, `id`, `address`, `dateOfBirth`, `email`, `password`, `firstName`, `lastName`, `phonenumber`, `numeroclient`, `contratStartingDate`, `fonction`, `matricule`,`idConseiller`) VALUES ('Client', '2', '27 allee du petit bois', '2018-07-09 00:00:00', 'gunter@mail.com', 'Gunter', 'Gunter', 'Gunter', '678469587','4987', NULL, NULL, NULL,'0');
+INSERT INTO `gestibankbd`.`user` (`USER_TYPE`, `id`, `address`, `dateOfBirth`, `email`, `password`, `firstName`, `lastName`, `phonenumber`, `numeroclient`,`idConseiller`) VALUES ('Client', '1', '19 rue Danton', '2018-07-10 00:00:00', 'vadcard.felix@gmail.com', 'lili','Felix', 'Vadard', '613938746', '1589','3');
+INSERT INTO `gestibankbd`.`user` (`USER_TYPE`, `id`, `address`, `dateOfBirth`, `email`, `password`, `firstName`, `lastName`, `phonenumber`, `numeroclient`, `contratStartingDate`, `fonction`, `matricule`,`idConseiller`) VALUES ('Client', '2', '27 allee du petit bois', '2018-07-09 00:00:00', 'gunter@mail.com', 'Gunter', 'Gunter', 'Gunter', '678469587','4987', NULL, NULL, NULL,'3');
 --Comptes
 INSERT INTO `gestibankbd`.`compte` (`rib`, `dateCreation`, `description`, `solde`) VALUES ('10258101', '2018-07-09 00:00:00', 'Bonjour je suis le compte 1', '1000');
 INSERT INTO `gestibankbd`.`compte` (`rib`, `dateCreation`, `description`, `solde`) VALUES ('10258102', '2018-07-09 00:00:00', 'Bonjour je suis le compte 2', '2000');

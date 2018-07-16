@@ -131,7 +131,7 @@ public class ClientRestController {
 		}
 		catch (Exception e)
 		{
-			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_MODIFIED);
+			return new ResponseEntity<Boolean>(HttpStatus.NOT_MODIFIED);
 		}
 	}
 	

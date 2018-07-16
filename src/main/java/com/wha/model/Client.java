@@ -24,7 +24,7 @@ public class Client extends User {
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=false, fetch=FetchType.EAGER)
 	private List<Compte> comptes;
 	
-
+	//Todo a supprimer
 	private int idConseiller;
 
 	public Client() {

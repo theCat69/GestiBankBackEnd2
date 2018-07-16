@@ -1,6 +1,8 @@
 package com.wha.service;
 
-import java.util.List;
+import java.util.Set;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +42,7 @@ public class ServiceCompeImpl implements ServiceCompte {
 	}
 
 	@Override
-	public List<Compte> findAllComptes() {
+	public Set<Compte> findAllComptes() {
 		return compteDao.findAllComptes();
 	}
 
@@ -60,21 +62,24 @@ public class ServiceCompeImpl implements ServiceCompte {
 	}
 
 	@Override
-	public Compte calculSolde(Long rib, Operation operation) {
-		Compte compte = compteDao.findByRib(rib);
+	public Compte calculSolde(Compte compte) {
+		System.out.println("********************CALCUL DU SOLDE***************************");
 		Long res = compte.getSolde();
-		for(Operation o : compte.getOperations()) {
-			if(o.getClass().equals("Depot")) {
+		for (Operation o : compte.getOperations()) {
+			System.out.println(o.getClass().getSimpleName());
+			System.out.println("montant=" + o.getSomme());
+			if (o.getClass().getSimpleName().equals("Depot")) {
 				res += o.getSomme();
 			}
-			else {
+			if (o.getClass().getSimpleName().equals("Retrait")) {
 				res -= o.getSomme();
+			} else {
+				System.err.println("C'est quoi ce bordel!!!");
 			}
 		}
+		System.out.println("calcule du solde res = " + res);
 		compte.setSolde(res);
 		return compte;
 	}
-	
-	
 
 }

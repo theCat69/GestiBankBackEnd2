@@ -1,7 +1,7 @@
 package com.wha.model;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -21,9 +21,9 @@ public class Compte {
 	private Date dateCreation;
 	private Long solde;
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER)
-	private List<Operation> operations;
+	private Set<Operation> operations;
 
-	public Compte(Long rib, String description, Date dateCreation, Long solde, List<Operation> operations) {
+	public Compte(Long rib, String description, Date dateCreation, Long solde, Set<Operation> operations) {
 		super();
 		this.rib = rib;
 		this.description = description;
@@ -32,11 +32,11 @@ public class Compte {
 		this.operations = operations;
 	}
 
-	public List<Operation> getOperations() {
+	public Set<Operation> getOperations() {
 		return operations;
 	}
 
-	public void setOperations(List<Operation> operations) {
+	public void setOperations(Set<Operation> operations) {
 		this.operations = operations;
 	}
 
@@ -75,10 +75,10 @@ public class Compte {
 	public void setSolde(Long solde) {
 		this.solde = solde;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "rib="+rib+", solde="+solde+", date="+dateCreation+", description="+description ;
-		
+		return "rib=" + rib + ", solde=" + solde + ", date=" + dateCreation + ", description=" + description;
+
 	}
 }

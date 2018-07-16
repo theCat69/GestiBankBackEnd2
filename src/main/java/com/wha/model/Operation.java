@@ -21,6 +21,11 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({ @JsonSubTypes.Type(value = Depot.class, name = "DEPOT"),
 		@JsonSubTypes.Type(value = Retrait.class, name = "RETRAIT") })
 public abstract class Operation {
+	@Override
+	public String toString() {
+		return "Operation [id=" + id + ", somme=" + somme + ", date=" + date + "]";
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;

@@ -1,6 +1,6 @@
 package com.wha.service;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +45,7 @@ public class ServiceClientImpl implements ServiceClient {
 	}
 
 	@Override
-	public List<Client> findAllClients() {
+	public Set<Client> findAllClients() {
 		return clientDao.findAllClients();
 	}
 
@@ -108,7 +108,7 @@ public class ServiceClientImpl implements ServiceClient {
 	}
 
 	@Override
-	public List<Client> findClientsNotAttributed() {
+	public Set<Client> findClientsNotAttributed() {
 		return clientDao.findClientsNotAttributed();
 	}
 

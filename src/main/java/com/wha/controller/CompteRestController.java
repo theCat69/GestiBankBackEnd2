@@ -1,6 +1,6 @@
 package com.wha.controller;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +28,7 @@ public class CompteRestController {
 	}
 
 	@GetMapping("/comptes/{rib}/operations")
-	public List<Operation> getComptes(@PathVariable("rib") Long rib) {
+	public Set<Operation> getComptes(@PathVariable("rib") Long rib) {
 		Compte compte = serviceCompte.findByRib(rib);
 		return compte.getOperations();
 	}
@@ -36,22 +36,20 @@ public class CompteRestController {
 	@PutMapping("/comptes/{rib}/operations")
 	@Transactional
 	public ResponseEntity<Compte> createOperation(@PathVariable("rib") Long rib, @RequestBody Operation operation) {
-		System.out.println("******** ajout d'opération ********");
-		System.out.println("Opération = " + operation);
+		System.out.println("Opération = " + operation.toString());
 		Compte compte = serviceCompte.findByRib(rib);
 		if (compte == null) {
 			return new ResponseEntity<Compte>(compte, HttpStatus.NOT_FOUND);
 		} else {
-			if (compte == null) {
+			if (operation == null) {
 				return new ResponseEntity<Compte>(compte, HttpStatus.NO_CONTENT);
 			} else {
 				compte.getOperations().add(operation);
-				serviceCompte.calculSolde(rib, operation);
+				compte = serviceCompte.calculSolde(compte);
 				serviceCompte.updateCompte(compte);
 				return new ResponseEntity<Compte>(compte, HttpStatus.OK);
 			}
 		}
-
 	}
 
 }

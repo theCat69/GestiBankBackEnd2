@@ -63,7 +63,12 @@ public class ServiceClientImpl implements ServiceClient {
 	public void deleteClientById(int id) {
 		Client client = clientDao.findById(id);
 		int idCons = client.getIdConseiller();
-		if (idCons == 0) {
+		Conseiller conseiller = conseillerDao.findById(idCons);
+		conseiller.getClients().remove(client);
+		conseillerDao.save(conseiller);
+		
+		
+	/*	if (idCons == 0) {
 			clientDao.deleteClientById(id);
 			}
 		else {
@@ -72,7 +77,7 @@ public class ServiceClientImpl implements ServiceClient {
 		client.setIdConseiller(0);
 		conseillerDao.updateConseiller(conseiller);
 		clientDao.deleteClientById(id);
-		}
+		}*/
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package com.wha.model;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,30 +9,28 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
-
 @SuppressWarnings("serial")
 @Entity
-@Table(name="Conseiller")
+@Table(name = "Conseiller")
 public class Conseiller extends User {
 
 	private String matricule;
 	private Date contratStartingDate;
-	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=false, fetch=FetchType.EAGER)
-	private List<Client> clients;
-	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER)
+	private Set<Client> clients;
+
 	public Conseiller() {
 		super();
 	}
 
-	public Conseiller(int id, String firstName, String lastName, String email, String password, String phonenumber, String address,
-			Date dateOfBirth, List<Client> clients, String matricule, Date contratStartingDate) {
+	public Conseiller(int id, String firstName, String lastName, String email, String password, String phonenumber,
+			String address, Date dateOfBirth, Set<Client> clients, String matricule, Date contratStartingDate) {
 		super(id, firstName, lastName, email, password, phonenumber, address, dateOfBirth);
 		this.clients = clients;
 		this.matricule = matricule;
 		this.contratStartingDate = contratStartingDate;
 	}
-	
+
 	public String getMatricule() {
 		return matricule;
 	}
@@ -49,18 +47,17 @@ public class Conseiller extends User {
 		this.contratStartingDate = contratStartingDate;
 	}
 
-	public Conseiller(List<Client> clients) {
+	public Conseiller(Set<Client> clients) {
 		super();
 		this.clients = clients;
 	}
 
-	public List<Client> getClients() {
+	public Set<Client> getClients() {
 		return clients;
 	}
 
-	public void setClients(List<Client> clients) {
+	public void setClients(Set<Client> clients) {
 		this.clients = clients;
 	}
-	
-	
+
 }

@@ -1,6 +1,7 @@
 package com.wha.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wha.model.Client;
 import com.wha.model.Conseiller;
-
 import com.wha.service.ServiceClient;
 import com.wha.service.ServiceConseiller;
 
@@ -48,12 +48,12 @@ public class ConseillerRestController {
 	}
 	
 	@GetMapping("/conseillers/{id}/clients")
-	public ResponseEntity<List<Client>> getClientsByConseiller(@PathVariable("id") int id) {
-		List<Client> clients = serviceConseiller.findById(id).getClients();
+	public ResponseEntity<Set<Client>> getClientsByConseiller(@PathVariable("id") int id) {
+		Set<Client> clients = serviceConseiller.findById(id).getClients();
 		if(clients == null) {
-			return new ResponseEntity<List<Client>>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Set<Client>>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
+		return new ResponseEntity<Set<Client>>(clients, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/conseillers")

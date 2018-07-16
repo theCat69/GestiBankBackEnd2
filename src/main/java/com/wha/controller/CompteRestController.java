@@ -1,31 +1,54 @@
 package com.wha.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.wha.model.Compte;
+import com.wha.model.Operation;
 import com.wha.service.ServiceCompte;
 
+@RestController
 public class CompteRestController {
 
+	@Autowired
 	private ServiceCompte serviceCompte;
 
-	@GetMapping("/compte/{rib}")
+	@GetMapping("/comptes/{rib}")
 	public Compte getCompteByRib(@PathVariable("rib") Long rib) {
 		return serviceCompte.findByRib(rib);
 	}
 
-	@PostMapping(value = "/comptes")
-	@Transactional
-	public ResponseEntity<Compte> createCompte(@RequestBody Compte compte) {
+	@GetMapping("/comptes/{rib}/operations")
+	public List<Operation> getComptes(@PathVariable("rib") Long rib) {
+		Compte compte = serviceCompte.findByRib(rib);
+		return compte.getOperations();
+	}
 
-		serviceCompte.save(compte);
-		return new ResponseEntity<Compte>(compte, HttpStatus.OK);
+	@PutMapping("/comptes/{rib}/operations")
+	@Transactional
+	public ResponseEntity<Compte> createOperation(@PathVariable("rib") Long rib, @RequestBody Operation operation) {
+		Compte compte = serviceCompte.findByRib(rib);
+		if (compte == null) {
+			return new ResponseEntity<Compte>(compte, HttpStatus.NOT_FOUND);
+		} else {
+			if (compte == null) {
+				return new ResponseEntity<Compte>(compte, HttpStatus.NO_CONTENT);
+			} else {
+				compte.getOperations().add(operation);
+				serviceCompte.updateCompte(compte);
+				return new ResponseEntity<Compte>(compte, HttpStatus.OK);
+			}
+		}
+
 	}
 
 }

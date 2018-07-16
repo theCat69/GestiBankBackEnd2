@@ -1,6 +1,7 @@
 package com.wha.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Query;
 
@@ -52,4 +53,5 @@ public class CompteDaoImpl extends AbstractDao<Long, Compte> implements CompteDa
 		return compte;
 	}
 
+	
 }

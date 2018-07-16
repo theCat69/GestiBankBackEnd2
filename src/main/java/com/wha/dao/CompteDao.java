@@ -1,6 +1,7 @@
 package com.wha.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import com.wha.model.Compte;
 
@@ -18,4 +19,6 @@ public interface CompteDao {
 	void updateCompte(Compte compte);
 
 	Compte updateCompteByRib(Long rib, Compte compte);
+	
+	
 }

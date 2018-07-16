@@ -1,6 +1,9 @@
 package com.wha.service;
 
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +13,7 @@ import com.wha.dao.ClientDao;
 import com.wha.dao.ConseillerDao;
 import com.wha.dao.DemandeOuvertureCompteDao;
 import com.wha.model.Client;
+import com.wha.model.Compte;
 import com.wha.model.Conseiller;
 import com.wha.model.DemandeOuvertureCompte;
 
@@ -61,23 +65,24 @@ public class ServiceClientImpl implements ServiceClient {
 
 	@Override
 	public void deleteClientById(int id) {
-		Client client = clientDao.findById(id);
+		/*Client client = clientDao.findById(id);
 		int idCons = client.getIdConseiller();
 		Conseiller conseiller = conseillerDao.findById(idCons);
 		conseiller.getClients().remove(client);
-		conseillerDao.save(conseiller);
-		
-		
-	/*	if (idCons == 0) {
+		conseillerDao.save(conseiller);*/
+		Client client = clientDao.findById(id);
+		int idCons = client.getIdConseiller();
+		if (idCons == 0) {
 			clientDao.deleteClientById(id);
 			}
 		else {
+		
 		Conseiller conseiller = conseillerDao.findById(idCons);
 		conseiller.getClients().remove(client);
 		client.setIdConseiller(0);
 		conseillerDao.updateConseiller(conseiller);
 		clientDao.deleteClientById(id);
-		}*/
+		}
 	}
 
 	@Override
@@ -115,6 +120,24 @@ public class ServiceClientImpl implements ServiceClient {
 	@Override
 	public Long getNbOfClients() {
 		return clientDao.getNbOfClients();
+	}
+
+	@Override
+	public Set<Compte> getCompteCourantRemenuere(String description, int id) {
+		Client client = clientDao.findById(id);
+		System.out.println("j'ai récupe client");
+		Set<Compte> comptes = client.getComptes();
+		Iterator<Compte> iterator = comptes.iterator();
+		Set<Compte> refinedComptes = Collections.emptySet();
+		while(iterator.hasNext())
+		{
+			//if(comptesc.getDescription().equals(description)) {
+				refinedComptes.add(iterator.next());
+			//}
+			
+		}
+		System.out.println(refinedComptes.toString());
+		return refinedComptes;
 	}
 	
 	

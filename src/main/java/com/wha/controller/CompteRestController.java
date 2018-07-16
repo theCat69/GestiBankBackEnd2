@@ -1,6 +1,7 @@
 package com.wha.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,7 @@ public class CompteRestController {
 		Compte compte = serviceCompte.findByRib(rib);
 		return compte.getOperations();
 	}
+	
 
 	@PutMapping("/comptes/{rib}/operations")
 	@Transactional
@@ -40,7 +42,7 @@ public class CompteRestController {
 		if (compte == null) {
 			return new ResponseEntity<Compte>(compte, HttpStatus.NOT_FOUND);
 		} else {
-			if (compte == null) {
+			if (operation == null) {
 				return new ResponseEntity<Compte>(compte, HttpStatus.NO_CONTENT);
 			} else {
 				compte.getOperations().add(operation);

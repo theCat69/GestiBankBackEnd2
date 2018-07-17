@@ -1,5 +1,6 @@
 package com.wha.dao;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.NoResultException;
@@ -46,7 +47,8 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 	@Override
 	public Set<Client> findAllClients() {
 		Query q = getEntityManager().createQuery("select c from Client c");
-		return (Set<Client>) q.getResultList();
+		Set<Client> clients = new HashSet<Client>(q.getResultList());
+		return clients ;
 	}
 
 	@Override

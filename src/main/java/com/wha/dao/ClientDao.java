@@ -1,5 +1,6 @@
 package com.wha.dao;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import com.wha.model.Client;
@@ -14,7 +15,7 @@ public interface ClientDao {
 	
 	void deleteClientById(int id);
 	
-	Set<Client> findAllClients(); 
+	ArrayList<Client> findAllClients(); 
 	
 	void deleteAllClients();
 	
@@ -26,8 +27,10 @@ public interface ClientDao {
 	
 	Long findNbOfNotAttClients();
 	
-	Set<Client> findClientsNotAttributed();
+	ArrayList<Client> findClientsNotAttributed();
 	
 	Long getNbOfClients();
+	
+	ArrayList<Client> findClientResearchBar(String research);
 	
 }

@@ -1,16 +1,14 @@
 package com.wha.dao;
 
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Repository;
 
-import com.google.common.collect.Lists;
 import com.wha.model.Client;
 
 @Repository("clientDao")
@@ -48,14 +46,16 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Set<Client> findAllClients() {
+	public ArrayList<Client> findAllClients() {
 		Query q = getEntityManager().createQuery("select c from Client c");
 		//Set<Client> clients = new HashSet<Client>(q.getResultList());
 		//List<Integer> sourceList = Lists.newArrayList();
-		Set<Client> clients = new HashSet<Client>();
-		CollectionUtils.addAll(clients, q.getResultList());
-		System.out.print(clients);
-		return clients ;
+		//ArrayList<Client> listClient = (ArrayList<Client>) q.getResultList();
+		/*Set<Client> clients = new HashSet<Client>();
+		System.out.println(listClient.toString());
+		CollectionUtils.addAll(clients, listClient);
+		System.out.println(clients);*/
+		return (ArrayList<Client>) q.getResultList();
 	}
 
 	@Override
@@ -115,11 +115,11 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Set<Client> findClientsNotAttributed() {
+	public ArrayList<Client> findClientsNotAttributed() {
 		String rqt = "SELECT c FROM Client c where c.idConseiller = ?1";
 		Query q = getEntityManager().createQuery(rqt).setParameter(1, 0);
-		Set<Client> clients = new HashSet<Client>(q.getResultList());
-		return clients ;
+		//Set<Client> clients = new HashSet<Client>(q.getResultList());
+		return (ArrayList<Client>) q.getResultList();
 	}
 
 	@Override
@@ -129,5 +129,16 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 		Long nbOfClients = (Long) q.getSingleResult();
 		return nbOfClients;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public ArrayList<Client> findClientResearchBar(String research) {
+		String rqt = "select c from Client c where c.lastName like ?1 order by c.lastName";
+		System.out.println(research);
+		Query q = getEntityManager().createQuery(rqt).setParameter(1, (research + "%"));
+		return (ArrayList<Client>) q.getResultList();
+	}
+	
+	
 
 }

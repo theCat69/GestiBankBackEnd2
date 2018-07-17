@@ -1,5 +1,6 @@
 package com.wha.service;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -50,7 +51,7 @@ public class ServiceClientImpl implements ServiceClient {
 	}
 
 	@Override
-	public List<Client> findAllClients() {
+	public Set<Client> findAllClients() {
 		return clientDao.findAllClients();
 	}
 
@@ -114,7 +115,7 @@ public class ServiceClientImpl implements ServiceClient {
 	}
 
 	@Override
-	public List<Client> findClientsNotAttributed() {
+	public Set<Client> findClientsNotAttributed() {
 		return clientDao.findClientsNotAttributed();
 	}
 

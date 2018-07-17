@@ -1,6 +1,5 @@
 package com.wha.dao;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Query;
@@ -29,9 +28,9 @@ public class CompteDaoImpl extends AbstractDao<Long, Compte> implements CompteDa
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Compte> findAllComptes() {
+	public Set<Compte> findAllComptes() {
 		Query q = getEntityManager().createQuery("select c from Compte c");
-		return (List<Compte>) q.getResultList();
+		return (Set<Compte>) q.getResultList();
 	}
 
 	@Override

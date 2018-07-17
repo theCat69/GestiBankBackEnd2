@@ -1,7 +1,6 @@
 package com.wha.model;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;

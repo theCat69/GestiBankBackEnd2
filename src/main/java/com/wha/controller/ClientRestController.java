@@ -1,6 +1,5 @@
 package com.wha.controller;
 
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +29,12 @@ public class ClientRestController {
 	}
 
 	@GetMapping("/clients")
-	public ResponseEntity<List<Client>> getClients() {
-		List<Client> clients= serviceClient.findAllClients();
+	public ResponseEntity<Set<Client>> getClients() {
+		Set<Client> clients= serviceClient.findAllClients();
 		if(clients == null) {
-			return new ResponseEntity<List<Client>>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Set<Client>>(HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
+			return new ResponseEntity<Set<Client>>(clients, HttpStatus.OK);
 		}
 
 	}
@@ -59,12 +58,12 @@ public class ClientRestController {
 	}
 	
 	@GetMapping("clients/notAttributed")
-	public ResponseEntity<List<Client>> getClientsNotAttributed() {
-		List<Client> clients= serviceClient.findClientsNotAttributed();
+	public ResponseEntity<Set<Client>> getClientsNotAttributed() {
+		Set<Client> clients= serviceClient.findClientsNotAttributed();
 		if(clients == null) {
-			return new ResponseEntity<List<Client>>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Set<Client>>(HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
+			return new ResponseEntity<Set<Client>>(clients, HttpStatus.OK);
 		}
 
 	}

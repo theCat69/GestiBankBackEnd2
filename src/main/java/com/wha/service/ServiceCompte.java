@@ -1,6 +1,5 @@
 package com.wha.service;
 
-import java.util.List;
 import java.util.Set;
 
 import com.wha.model.Compte;
@@ -12,12 +11,14 @@ public interface ServiceCompte {
 
 	void deleteCompteByRib(Long rib);
 
-	List<Compte> findAllComptes();
+	Set<Compte> findAllComptes();
 
 	void deleteAllComptes();
 
 	void updateCompte(Compte compte);
 
 	Compte updateCompteByRib(Long rib, Compte compte);
+
+	Compte calculSolde(Compte compte);
 
 }

@@ -1,15 +1,13 @@
 package com.wha.service;
 
 import java.util.Set;
-import java.util.List;
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wha.dao.CompteDao;
 import com.wha.model.Compte;
-import com.wha.model.Operation;
+import com.wha.model.Transaction;
 
 @Service("serviceCompteImpl")
 public class ServiceCompeImpl implements ServiceCompte {
@@ -62,24 +60,18 @@ public class ServiceCompeImpl implements ServiceCompte {
 	}
 
 	@Override
-	public Compte calculSolde(Compte compte) {
+	public void calculTransaction(Transaction transaction) {
 		System.out.println("********************CALCUL DU SOLDE***************************");
-		Long res = compte.getSolde();
-		for (Operation o : compte.getOperations()) {
-			System.out.println(o.getClass().getSimpleName());
-			System.out.println("montant=" + o.getSomme());
-			if (o.getClass().getSimpleName().equals("Depot")) {
-				res += o.getSomme();
-			}
-			if (o.getClass().getSimpleName().equals("Retrait")) {
-				res -= o.getSomme();
-			} else {
-				System.err.println("C'est quoi ce bordel!!!");
-			}
-		}
-		System.out.println("calcule du solde res = " + res);
-		compte.setSolde(res);
-		return compte;
+		System.out.println("rib1=" + transaction.getRib1() + ", rib2=" + transaction.getRib2());
+		Compte compte1 = findByRib(transaction.getRib1());
+		Compte compte2 = findByRib(transaction.getRib2());
+		compte2.getOperations().add(transaction.getDepot());
+		compte1.getOperations().add(transaction.getRetrait());
+		compte2.setSolde(compte2.getSolde() + transaction.getDepot().getSomme());
+		compte1.setSolde(compte1.getSolde() - transaction.getRetrait().getSomme());
+		System.out.println(compte1.toString() + ", " + compte2.toString());
+		updateCompte(compte1);
+		updateCompte(compte2);
 	}
 
 }

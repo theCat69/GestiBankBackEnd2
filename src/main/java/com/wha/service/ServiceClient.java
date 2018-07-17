@@ -1,8 +1,8 @@
 package com.wha.service;
-
 import java.util.Set;
 
 import com.wha.model.Client;
+import com.wha.model.Compte;
 import com.wha.model.DemandeOuvertureCompte;
 
 public interface ServiceClient {
@@ -30,4 +30,6 @@ public interface ServiceClient {
 	Set<Client> findClientsNotAttributed();
 
 	Long getNbOfClients();
+
+	Set<Compte> getCompteCourantRemenuere(String description, int id);
 }

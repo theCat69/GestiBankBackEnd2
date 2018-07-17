@@ -1,5 +1,4 @@
 package com.wha.controller;
-
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +31,7 @@ public class CompteRestController {
 		Compte compte = serviceCompte.findByRib(rib);
 		return compte.getOperations();
 	}
+	
 
 	@PutMapping("/comptes/{rib}/operations")
 	@Transactional

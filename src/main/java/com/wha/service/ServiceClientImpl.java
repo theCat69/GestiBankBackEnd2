@@ -1,5 +1,10 @@
 package com.wha.service;
 
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +15,7 @@ import com.wha.dao.ClientDao;
 import com.wha.dao.ConseillerDao;
 import com.wha.dao.DemandeOuvertureCompteDao;
 import com.wha.model.Client;
+import com.wha.model.Compte;
 import com.wha.model.Conseiller;
 import com.wha.model.DemandeOuvertureCompte;
 
@@ -61,14 +67,15 @@ public class ServiceClientImpl implements ServiceClient {
 
 	@Override
 	public void deleteClientById(int id) {
-		Client client = clientDao.findById(id);
+		/*Client client = clientDao.findById(id);
 		int idCons = client.getIdConseiller();
 		Conseiller conseiller = conseillerDao.findById(idCons);
 		conseiller.getClients().remove(client);
-		conseillerDao.save(conseiller);
+		conseillerDao.save(conseiller);*/
 		
-		
-	/*	if (idCons == 0) {
+		Client client = clientDao.findById(id);
+		int idCons = client.getIdConseiller();
+		if (idCons == 0) {
 			clientDao.deleteClientById(id);
 			}
 		else {
@@ -77,7 +84,7 @@ public class ServiceClientImpl implements ServiceClient {
 		client.setIdConseiller(0);
 		conseillerDao.updateConseiller(conseiller);
 		clientDao.deleteClientById(id);
-		}*/
+		}
 	}
 
 	@Override
@@ -115,6 +122,46 @@ public class ServiceClientImpl implements ServiceClient {
 	@Override
 	public Long getNbOfClients() {
 		return clientDao.getNbOfClients();
+	}
+	
+	// !!! Renvoie une valeur null attaché dans le Set !!! Mais pourquoi ???
+	@Override
+	public Set<Compte> getCompteCourantRemenuere(String description, int id) {
+		
+		Client client = clientDao.findById(id);
+		Set<Compte> comptes = client.getComptes();
+		Compte[] arrayComptes = (comptes.toArray(new Compte[comptes.size()]));
+		Compte[] arrayRefinedComptes = new Compte[comptes.size()];
+		int j = 0;
+		for (int i=0; i<arrayComptes.length; i++)
+		{
+			if(arrayComptes[i].getDescription().equals(description)) {
+				arrayRefinedComptes[j] = arrayComptes[i];
+				j++;
+			}
+		}
+		//List<Compte> ListRefinedCompte = Arrays.asList(arrayRefinedComptes);
+		ArrayList<Compte> ListRefinedCompte = new ArrayList<Compte>();
+		for (Compte c : arrayRefinedComptes) {
+		    if (c != null) {
+		    	ListRefinedCompte.add(c);
+		    }
+		}
+		Set<Compte> refinedComptes = new HashSet<Compte> (ListRefinedCompte);
+		return refinedComptes;
+		
+		// --- what i wished i could do ;s ---
+		//Set<Compte> refinedComptes = comptes.stream().filter(c - > c.getDescription()).equals(description).collect(Collectors.toList());
+
+		// --- What i tried to do to get still something short and sexy ! ---
+		/*Iterator<Compte> iterator = comptes.iterator();
+		Set<Compte> refinedComptes = Collections.emptySet();
+		while(iterator.hasNext())
+		{
+			if(comptes.next().getDescription().equals(description)) {
+				refinedComptes.add(iterator.next());
+			}		
+		}*/
 	}
 	
 	

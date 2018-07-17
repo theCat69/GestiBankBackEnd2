@@ -18,4 +18,6 @@ public interface CompteDao {
 	void updateCompte(Compte compte);
 
 	Compte updateCompteByRib(Long rib, Compte compte);
+	
+	
 }

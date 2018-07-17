@@ -86,6 +86,7 @@ public class ClientRestController {
 		}	
 	}
 
+	//For dev fun :p
 	@DeleteMapping("/clients/deleteallclients")
 	@Transactional
 	public ResponseEntity<String> deleteAllClient() {
@@ -109,7 +110,17 @@ public class ClientRestController {
 		Client client = serviceClient.findById(id);
 		return client.getComptes();
 	}
-
+	
+	@GetMapping("/clients/{id}/comptesRorC/{description}")
+	public ResponseEntity<Set<Compte>> getComptesCourantRemenuere(@PathVariable("id") int id, @PathVariable("description") String description) {
+		Set<Compte> comptes = serviceClient.getCompteCourantRemenuere(description, id);
+		if (comptes == null) {
+			return new ResponseEntity<Set<Compte>>(HttpStatus.NOT_FOUND);
+		}
+		else {
+			return new ResponseEntity<Set<Compte>>(comptes, HttpStatus.OK);
+		}
+	}
 	@PutMapping("/clients/{id}/comptes")
 	@Transactional
 	public ResponseEntity<Client> createCompte(@PathVariable("id") int id, @RequestBody Compte compte) {

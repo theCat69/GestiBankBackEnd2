@@ -20,4 +20,5 @@ public interface ServiceCompte {
 	Compte updateCompteByRib(Long rib, Compte compte);
 
 	Compte calculSolde(Compte compte);
+
 }

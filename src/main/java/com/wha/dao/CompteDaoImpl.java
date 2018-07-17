@@ -52,4 +52,5 @@ public class CompteDaoImpl extends AbstractDao<Long, Compte> implements CompteDa
 		return compte;
 	}
 
+	
 }

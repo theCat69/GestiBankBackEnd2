@@ -74,6 +74,7 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 		update(user);
 	}
 
+
 	// fonction permettant de récuperer le client par numéro client et de ne pas
 	// faire planter l'appli si la requette est null
 	// grace au try/catch

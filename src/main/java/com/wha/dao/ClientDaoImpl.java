@@ -1,13 +1,16 @@
 package com.wha.dao;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Repository;
 
+import com.google.common.collect.Lists;
 import com.wha.model.Client;
 
 @Repository("clientDao")
@@ -47,7 +50,11 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 	@Override
 	public Set<Client> findAllClients() {
 		Query q = getEntityManager().createQuery("select c from Client c");
-		Set<Client> clients = new HashSet<Client>(q.getResultList());
+		//Set<Client> clients = new HashSet<Client>(q.getResultList());
+		//List<Integer> sourceList = Lists.newArrayList();
+		Set<Client> clients = new HashSet<Client>();
+		CollectionUtils.addAll(clients, q.getResultList());
+		System.out.print(clients);
 		return clients ;
 	}
 
@@ -111,7 +118,8 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 	public Set<Client> findClientsNotAttributed() {
 		String rqt = "SELECT c FROM Client c where c.idConseiller = ?1";
 		Query q = getEntityManager().createQuery(rqt).setParameter(1, 0);
-		return (Set<Client>) q.getResultList();
+		Set<Client> clients = new HashSet<Client>(q.getResultList());
+		return clients ;
 	}
 
 	@Override

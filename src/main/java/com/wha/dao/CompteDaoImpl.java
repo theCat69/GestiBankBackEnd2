@@ -30,7 +30,10 @@ public class CompteDaoImpl extends AbstractDao<Long, Compte> implements CompteDa
 	@Override
 	public Set<Compte> findAllComptes() {
 		Query q = getEntityManager().createQuery("select c from Compte c");
-		return (Set<Compte>) q.getResultList();
+		return   (Set<Compte>) q.getResultList();
+		
+		//Set<Compte> comptes = new HashSet<Compte>(q.getResultList());
+		//return comptes;
 	}
 
 	@Override

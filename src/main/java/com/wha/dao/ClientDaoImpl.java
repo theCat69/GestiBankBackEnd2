@@ -132,7 +132,7 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Client> findClientResearchBar(String research) {
+	public ArrayList<Client> findClientResearchBar(String  research) {
 		String rqt = "select c from Client c where c.lastName like ?1 order by c.lastName";
 		System.out.println(research);
 		Query q = getEntityManager().createQuery(rqt).setParameter(1, (research + "%"));

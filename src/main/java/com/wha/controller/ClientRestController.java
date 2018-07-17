@@ -1,6 +1,6 @@
 package com.wha.controller;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,12 +29,12 @@ public class ClientRestController {
 	}
 
 	@GetMapping("/clients")
-	public ResponseEntity<List<Client>> getClients() {
-		List<Client> clients= serviceClient.findAllClients();
+	public ResponseEntity<Set<Client>> getClients() {
+		Set<Client> clients= serviceClient.findAllClients();
 		if(clients == null) {
-			return new ResponseEntity<List<Client>>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Set<Client>>(HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
+			return new ResponseEntity<Set<Client>>(clients, HttpStatus.OK);
 		}
 
 	}
@@ -58,12 +58,12 @@ public class ClientRestController {
 	}
 	
 	@GetMapping("clients/notAttributed")
-	public ResponseEntity<List<Client>> getClientsNotAttributed() {
-		List<Client> clients= serviceClient.findClientsNotAttributed();
+	public ResponseEntity<Set<Client>> getClientsNotAttributed() {
+		Set<Client> clients= serviceClient.findClientsNotAttributed();
 		if(clients == null) {
-			return new ResponseEntity<List<Client>>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Set<Client>>(HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
+			return new ResponseEntity<Set<Client>>(clients, HttpStatus.OK);
 		}
 
 	}
@@ -86,6 +86,7 @@ public class ClientRestController {
 		}	
 	}
 
+	//For dev fun :p
 	@DeleteMapping("/clients/deleteallclients")
 	@Transactional
 	public ResponseEntity<String> deleteAllClient() {
@@ -105,11 +106,21 @@ public class ClientRestController {
 	}
 
 	@GetMapping("/clients/{id}/comptes")
-	public List<Compte> getComptes(@PathVariable("id") int id) {
+	public Set<Compte> getComptes(@PathVariable("id") int id) {
 		Client client = serviceClient.findById(id);
 		return client.getComptes();
 	}
-
+	
+	@GetMapping("/clients/{id}/comptesRorC/{description}")
+	public ResponseEntity<Set<Compte>> getComptesCourantRemenuere(@PathVariable("id") int id, @PathVariable("description") String description) {
+		Set<Compte> comptes = serviceClient.getCompteCourantRemenuere(description, id);
+		if (comptes == null) {
+			return new ResponseEntity<Set<Compte>>(HttpStatus.NOT_FOUND);
+		}
+		else {
+			return new ResponseEntity<Set<Compte>>(comptes, HttpStatus.OK);
+		}
+	}
 	@PutMapping("/clients/{id}/comptes")
 	@Transactional
 	public ResponseEntity<Client> createCompte(@PathVariable("id") int id, @RequestBody Compte compte) {

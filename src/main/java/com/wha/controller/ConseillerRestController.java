@@ -87,6 +87,9 @@ public class ConseillerRestController {
 		}
 	}
 	
+	
+	//--- !!! BAD PRACTICE !!! ---
+	// => mettre la logic dans le service : RestController = je récupère une valeur et je traite la réponse en fonction
 	@PutMapping(value = "/conseillers/clients/{id}")
 	@Transactional
 	public ResponseEntity<Client> attribuerClient(@PathVariable("id") int id, @RequestBody Conseiller conseiller) {
@@ -110,6 +113,8 @@ public class ConseillerRestController {
 		}
 	}
 	
+	//--- !!! BAD PRACTICE !!! --- 
+	// => mettre la logic dans le service : RestController = je récupère une valeur et je traite la réponse en fonction
 	@PutMapping(value = "/conseillers/clients/desatribue/{id}")
 	@Transactional
 	public ResponseEntity<Boolean> desattribuerClient(@PathVariable("id") int id, @RequestBody Client client) {

@@ -1,12 +1,16 @@
 package com.wha.dao;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Repository;
 
+import com.google.common.collect.Lists;
 import com.wha.model.Client;
 
 @Repository("clientDao")
@@ -35,16 +39,23 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 	@Override
 	public void deleteClientById(int id) {
 		delete(getByKey(id));
-		/*String rqt = "delete from Client c where c.id=?1";
-		Query q = getEntityManager().createQuery(rqt).setParameter(1, id);
-		int count = q.executeUpdate();*/
+		/*
+		 * String rqt = "delete from Client c where c.id=?1"; Query q =
+		 * getEntityManager().createQuery(rqt).setParameter(1, id); int count =
+		 * q.executeUpdate();
+		 */
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Client> findAllClients() {
+	public Set<Client> findAllClients() {
 		Query q = getEntityManager().createQuery("select c from Client c");
-		return (List<Client>) q.getResultList();
+		//Set<Client> clients = new HashSet<Client>(q.getResultList());
+		//List<Integer> sourceList = Lists.newArrayList();
+		Set<Client> clients = new HashSet<Client>();
+		CollectionUtils.addAll(clients, q.getResultList());
+		System.out.print(clients);
+		return clients ;
 	}
 
 	@Override
@@ -53,7 +64,7 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 		int count = getEntityManager().createQuery("delete from Client c").executeUpdate();
 	}
 
-	//ne marche pas !!!
+	// ne marche pas !!!
 	@Override
 	public Client updateClientById(int id, Client client) {
 		@SuppressWarnings("unused")
@@ -72,19 +83,19 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 		update(user);
 	}
 
-	
-	//fonction permettant de récuperer le client par numéro client et de ne pas faire planter l'appli si la requette est null
-	//grace au try/catch
+
+	// fonction permettant de récuperer le client par numéro client et de ne pas
+	// faire planter l'appli si la requette est null
+	// grace au try/catch
 	@Override
 	public Client findByNumeroClient(int numeroclient) {
 		Client client = null;
 		String rqt = "select c from Client c where c.numeroclient = ?1";
 		Query q = getEntityManager().createQuery(rqt).setParameter(1, numeroclient);
-		
+
 		try {
 			client = (Client) q.getSingleResult();
-		}
-		catch (NoResultException nre) {
+		} catch (NoResultException nre) {
 		}
 
 		if (client == null) {
@@ -104,10 +115,11 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Client> findClientsNotAttributed() {
+	public Set<Client> findClientsNotAttributed() {
 		String rqt = "SELECT c FROM Client c where c.idConseiller = ?1";
 		Query q = getEntityManager().createQuery(rqt).setParameter(1, 0);
-		return (List<Client>) q.getResultList();
+		Set<Client> clients = new HashSet<Client>(q.getResultList());
+		return clients ;
 	}
 
 	@Override

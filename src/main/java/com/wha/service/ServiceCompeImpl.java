@@ -95,11 +95,18 @@ public class ServiceCompeImpl implements ServiceCompte {
 		Compte compte=new Compte();
 		compte.setDateCreation(new Date());
 		compte.setDescription(demande.getDescription());
+		compte.setSolde(0L);
 		Long rib = save(compte);
 		Client client = clientDao.findById(demande.getIdClient());
 		client.getComptes().add(findByRib(rib));
 		clientDao.updateClient(client);
 		return findByRib(rib);
+	}
+
+	@Override
+	public Compte calculSolde(Compte compte) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

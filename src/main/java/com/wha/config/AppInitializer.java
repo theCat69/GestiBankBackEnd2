@@ -4,10 +4,8 @@ import javax.servlet.Filter;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import com.wha.config.AppConfig;
-
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	protected Class[] getRootConfigClasses() {
@@ -24,12 +22,11 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	protected String[] getServletMappings() {
 		return new String[] { "/" };
 	}
-	
-    @Override
-    protected Filter[] getServletFilters() {
-    	Filter [] singleton = { new CORSFilter() };
-    	return singleton;
+
+	@Override
+	protected Filter[] getServletFilters() {
+		Filter[] singleton = { new CORSFilter() };
+		return singleton;
 	}
- 
-	
+
 }

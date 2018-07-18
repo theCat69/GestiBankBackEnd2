@@ -10,7 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.wha.model.DemandeOuvertureCompte;
 
 @Repository("demandeOuvertureCompteDao")
-public class DemandeOuvertureCompteDaoImpl extends AbstractDao<Integer, DemandeOuvertureCompte>implements DemandeOuvertureCompteDao {
+public class DemandeOuvertureCompteDaoImpl extends AbstractDao<Integer, DemandeOuvertureCompte>
+		implements DemandeOuvertureCompteDao {
 
 	@Override
 	public DemandeOuvertureCompte findById(int id) {
@@ -38,7 +39,8 @@ public class DemandeOuvertureCompteDaoImpl extends AbstractDao<Integer, DemandeO
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<DemandeOuvertureCompte> findDemandeOuvertureCompteByIdConseiller(int id) {
-		Query q = getEntityManager().createQuery("select d from DemandeOuvertureCompte d where d.idConseiller = ?1").setParameter(1, id);
+		Query q = getEntityManager().createQuery("select d from DemandeOuvertureCompte d where d.idConseiller = ?1")
+				.setParameter(1, id);
 		return (List<DemandeOuvertureCompte>) q.getResultList();
 	}
 }

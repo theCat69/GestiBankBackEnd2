@@ -9,17 +9,17 @@ import javax.persistence.Id;
 
 @Entity
 public class DemandeOuvertureCompte {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
+
 	private int idClient;
 	private int idConseiller;
 	private String description;
 	private Date date;
-	
-	public DemandeOuvertureCompte() {	
+
+	public DemandeOuvertureCompte() {
 	}
 
 	public DemandeOuvertureCompte(int id, int idClient, int idConseiller, String description, Date date) {
@@ -70,5 +70,5 @@ public class DemandeOuvertureCompte {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+
 }

@@ -26,7 +26,7 @@ import com.wha.service.ServiceDemande;
 
 @RestController
 public class ConseillerRestController {
-	
+
 	@Autowired
 	private ServiceConseiller serviceConseiller;
 	@Autowired
@@ -54,11 +54,11 @@ public class ConseillerRestController {
 		}
 		return new ResponseEntity<Conseiller>(conseiller, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/conseillers/{id}/clients")
 	public ResponseEntity<Set<Client>> getClientsByConseiller(@PathVariable("id") int id) {
 		Set<Client> clients = serviceConseiller.findById(id).getClients();
-		if(clients == null) {
+		if (clients == null) {
 			return new ResponseEntity<Set<Client>>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Set<Client>>(clients, HttpStatus.OK);
@@ -80,7 +80,7 @@ public class ConseillerRestController {
 		} else {
 			serviceConseiller.deleteConseillerById(id);
 			return new ResponseEntity<Integer>(id, HttpStatus.OK);
-		}	
+		}
 	}
 
 	@PutMapping("/conseillers/{id}")
@@ -94,72 +94,69 @@ public class ConseillerRestController {
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		}
 	}
-	
-	
-	//--- !!! BAD PRACTICE !!! ---
-	// => mettre la logic dans le service : RestController = je récupère une valeur et je traite la réponse en fonction
+
+	// --- !!! BAD PRACTICE !!! ---
+	// => mettre la logic dans le service : RestController = je récupère une valeur
+	// et je traite la réponse en fonction
 	@PutMapping(value = "/conseillers/clients/{id}")
 	@Transactional
 	public ResponseEntity<Client> attribuerClient(@PathVariable("id") int id, @RequestBody Conseiller conseiller) {
-		
+
 		int idCons = conseiller.getId();
 
 		Conseiller trueConseiller = serviceConseiller.findById(idCons);
 		Client client = serviceClient.findById(id);
-		
+
 		trueConseiller.getClients().add(client);
 		serviceConseiller.updateConseiller(trueConseiller);
-		
+
 		client.setIdConseiller(idCons);
 		serviceClient.updateClient(client);
-		
+
 		if (trueConseiller == null || client == null) {
 			return new ResponseEntity<Client>(client, HttpStatus.NOT_FOUND);
-		}
-		else {
+		} else {
 			return new ResponseEntity<Client>(client, HttpStatus.OK);
 		}
 	}
-	
-	//--- !!! BAD PRACTICE !!! --- 
-	// => mettre la logic dans le service : RestController = je récupère une valeur et je traite la réponse en fonction
+
+	// --- !!! BAD PRACTICE !!! ---
+	// => mettre la logic dans le service : RestController = je récupère une valeur
+	// et je traite la réponse en fonction
 	@PutMapping(value = "/conseillers/clients/desatribue/{id}")
 	@Transactional
 	public ResponseEntity<Boolean> desattribuerClient(@PathVariable("id") int id, @RequestBody Client client) {
-		
+
 		int idCl = client.getId();
 
 		Conseiller conseiller = serviceConseiller.findById(id);
 		Client trueClient = serviceClient.findById(idCl);
-		
+
 		conseiller.getClients().remove(trueClient);
 		serviceConseiller.updateConseiller(conseiller);
-		
+
 		trueClient.setIdConseiller(0);
 		serviceClient.updateClient(trueClient);
-		
+
 		if (conseiller == null || trueClient == null) {
 			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
-		}
-		else {
+		} else {
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-		}		
+		}
 	}
-	
-	@GetMapping(value= "/conseillers/getNb")
+
+	@GetMapping(value = "/conseillers/getNb")
 	public ResponseEntity<Long> getNbOfConseillers() {
-		
+
 		Long nbOfConseiller = serviceConseiller.getNbOfConseillers();
 		if (nbOfConseiller == null) {
 			return new ResponseEntity<Long>(nbOfConseiller, HttpStatus.NOT_FOUND);
-		}
-		else {
+		} else {
 			return new ResponseEntity<Long>(nbOfConseiller, HttpStatus.OK);
 		}
-		
-		
+
 	}
-	
+
 	@GetMapping("/conseillers/{id}/demandes")
 	public ResponseEntity<List<DemandeOuvertureCompte>> getDemandeOuverturesByIdCons(@PathVariable("id") int id) {
 
@@ -170,7 +167,7 @@ public class ConseillerRestController {
 		}
 		return new ResponseEntity<List<DemandeOuvertureCompte>>(douvcompte, HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/demandes/{id_d}")
 	@Transactional
 	public ResponseEntity<Integer> deleteDemande(@PathVariable Integer id_d) {
@@ -179,12 +176,12 @@ public class ConseillerRestController {
 		} else {
 			serviceDemande.deleteDemande(id_d);
 			return new ResponseEntity<Integer>(id_d, HttpStatus.OK);
-		}	
+		}
 	}
-	
+
 	@PutMapping(value = "/demandes")
 	@Transactional
-	public ResponseEntity<Compte> validateDemande(@RequestBody DemandeOuvertureCompte demande){
+	public ResponseEntity<Compte> validateDemande(@RequestBody DemandeOuvertureCompte demande) {
 		if (serviceDemande.getDemandeById(demande.getId()) == null) {
 			return new ResponseEntity<Compte>(HttpStatus.NOT_FOUND);
 		} else {
@@ -193,6 +190,5 @@ public class ConseillerRestController {
 			return new ResponseEntity<Compte>(compte, HttpStatus.OK);
 		}
 	}
-	
-  
+
 }

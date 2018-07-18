@@ -65,8 +65,8 @@ public class Transaction {
 
 	private Long rib1;
 	private Long rib2;
-	@OneToOne (cascade=CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Depot depot;
-	@OneToOne (cascade=CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Retrait retrait;
 }

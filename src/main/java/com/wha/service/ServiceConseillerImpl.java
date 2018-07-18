@@ -1,25 +1,19 @@
 package com.wha.service;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wha.dao.ConseillerDao;
-import com.wha.dao.DemandeOuvertureCompteDao;
-import com.wha.model.Client;
 import com.wha.model.Conseiller;
-import com.wha.model.DemandeOuvertureCompte;
-
 
 @Service("serviceConseillerImpl")
 public class ServiceConseillerImpl implements ServiceConseiller {
 
 	@Autowired
 	private ConseillerDao conseillerDao;
-	
 
 	@Override
 	public Conseiller findConseillerByName(String name) {
@@ -29,7 +23,7 @@ public class ServiceConseillerImpl implements ServiceConseiller {
 	@Override
 	public void save(Conseiller conseiller) {
 		int numeroConseiller = (int) (Math.random() * 888888 + 111111);
-		String matricule = "C" +conseiller.getId()+ numeroConseiller;
+		String matricule = "C" + conseiller.getId() + numeroConseiller;
 		conseiller.setMatricule(matricule);
 		conseillerDao.save(conseiller);
 	}
@@ -73,10 +67,4 @@ public class ServiceConseillerImpl implements ServiceConseiller {
 		return conseillerDao.getNbOfConseillers();
 	}
 
-
-	
-	
-
 }
-
-

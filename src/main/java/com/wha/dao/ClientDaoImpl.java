@@ -1,8 +1,6 @@
 package com.wha.dao;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -16,9 +14,6 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 
 	@Override
 	public Client findById(int id) {
-		// Query q = getEntityManager().createQuery("select c from Client c where id =
-		// ?1").setParameter(1, id);
-		// return (Client) q.getSingleResult();
 		return getByKey(id);
 	}
 
@@ -37,24 +32,12 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 	@Override
 	public void deleteClientById(int id) {
 		delete(getByKey(id));
-		/*
-		 * String rqt = "delete from Client c where c.id=?1"; Query q =
-		 * getEntityManager().createQuery(rqt).setParameter(1, id); int count =
-		 * q.executeUpdate();
-		 */
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<Client> findAllClients() {
 		Query q = getEntityManager().createQuery("select c from Client c");
-		//Set<Client> clients = new HashSet<Client>(q.getResultList());
-		//List<Integer> sourceList = Lists.newArrayList();
-		//ArrayList<Client> listClient = (ArrayList<Client>) q.getResultList();
-		/*Set<Client> clients = new HashSet<Client>();
-		System.out.println(listClient.toString());
-		CollectionUtils.addAll(clients, listClient);
-		System.out.println(clients);*/
 		return (ArrayList<Client>) q.getResultList();
 	}
 
@@ -71,18 +54,12 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 		int count = getEntityManager().createQuery("update Client c set c = ?2 where c.id = ?1").setParameter(1, id)
 				.setParameter(2, client).executeUpdate();
 		return client;
-
-		// update(user);
-		// return user;
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void updateClient(Client user) {
 		update(user);
 	}
-
 
 	// fonction permettant de récuperer le client par numéro client et de ne pas
 	// faire planter l'appli si la requette est null
@@ -118,7 +95,6 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 	public ArrayList<Client> findClientsNotAttributed() {
 		String rqt = "SELECT c FROM Client c where c.idConseiller = ?1";
 		Query q = getEntityManager().createQuery(rqt).setParameter(1, 0);
-		//Set<Client> clients = new HashSet<Client>(q.getResultList());
 		return (ArrayList<Client>) q.getResultList();
 	}
 
@@ -132,13 +108,11 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Client> findClientResearchBar(String  research) {
+	public ArrayList<Client> findClientResearchBar(String research) {
 		String rqt = "select c from Client c where c.lastName like ?1 order by c.lastName";
 		System.out.println(research);
 		Query q = getEntityManager().createQuery(rqt).setParameter(1, (research + "%"));
 		return (ArrayList<Client>) q.getResultList();
 	}
-	
-	
 
 }

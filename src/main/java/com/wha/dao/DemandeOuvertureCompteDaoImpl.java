@@ -1,5 +1,6 @@
 package com.wha.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -18,6 +19,7 @@ public class DemandeOuvertureCompteDaoImpl extends AbstractDao<Integer, DemandeO
 
 	@Override
 	public void save(DemandeOuvertureCompte dOC) {
+		dOC.setDate(new Date());
 		persist(dOC);
 	}
 
@@ -33,4 +35,10 @@ public class DemandeOuvertureCompteDaoImpl extends AbstractDao<Integer, DemandeO
 		return (List<DemandeOuvertureCompte>) q.getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<DemandeOuvertureCompte> findDemandeOuvertureCompteByIdConseiller(int id) {
+		Query q = getEntityManager().createQuery("select d from DemandeOuvertureCompte d where d.idConseiller = ?1").setParameter(1, id);
+		return (List<DemandeOuvertureCompte>) q.getResultList();
+	}
 }

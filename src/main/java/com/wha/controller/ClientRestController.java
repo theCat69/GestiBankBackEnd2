@@ -1,5 +1,6 @@
 package com.wha.controller;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,12 @@ public class ClientRestController {
 	}
 
 	@GetMapping("/clients")
-	public ResponseEntity<Set<Client>> getClients() {
-		Set<Client> clients= serviceClient.findAllClients();
+	public ResponseEntity<ArrayList<Client>> getClients() {
+		ArrayList<Client> clients= serviceClient.findAllClients();
 		if(clients == null) {
-			return new ResponseEntity<Set<Client>>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<ArrayList<Client>>(HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<Set<Client>>(clients, HttpStatus.OK);
+			return new ResponseEntity<ArrayList<Client>>(clients, HttpStatus.OK);
 		}
 
 	}
@@ -58,12 +59,12 @@ public class ClientRestController {
 	}
 	
 	@GetMapping("clients/notAttributed")
-	public ResponseEntity<Set<Client>> getClientsNotAttributed() {
-		Set<Client> clients= serviceClient.findClientsNotAttributed();
+	public ResponseEntity<ArrayList<Client>> getClientsNotAttributed() {
+		ArrayList<Client> clients= serviceClient.findClientsNotAttributed();
 		if(clients == null) {
-			return new ResponseEntity<Set<Client>>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<ArrayList<Client>>(HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<Set<Client>>(clients, HttpStatus.OK);
+			return new ResponseEntity<ArrayList<Client>>(clients, HttpStatus.OK);
 		}
 
 	}
@@ -182,6 +183,18 @@ public class ClientRestController {
 			return new ResponseEntity<Long>(nbOfClients, HttpStatus.NOT_FOUND);
 		} else {
 			return new ResponseEntity<Long>(nbOfClients, HttpStatus.OK);
+		}
+	}
+	
+	@GetMapping(value="/clients/researched/{research}")
+	public ResponseEntity<ArrayList<Client>> getClientResearchByName(@PathVariable("research") String research){
+		ArrayList<Client> clients = serviceClient.getClientResearchBar(research);
+		System.out.println(clients);
+		if (clients == null) {
+			return new ResponseEntity<ArrayList<Client>>(HttpStatus.NOT_FOUND);
+		}
+		else {
+			return new ResponseEntity<ArrayList<Client>>(clients, HttpStatus.OK);
 		}
 	}
 }

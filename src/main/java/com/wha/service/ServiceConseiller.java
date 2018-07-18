@@ -2,7 +2,10 @@ package com.wha.service;
 
 import java.util.List;
 
+
 import com.wha.model.Conseiller;
+import com.wha.model.DemandeOuvertureCompte;
+
 
 public interface ServiceConseiller {
 	
@@ -21,4 +24,7 @@ public interface ServiceConseiller {
 	void updateConseillerById(int id, Conseiller conseiller);
 	
 	Long getNbOfConseillers();
+	
+
+	
 }

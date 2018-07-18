@@ -33,6 +33,7 @@ public interface ServiceClient {
 	Long getNbOfClients();
 
 	Set<Compte> getCompteCourantRemenuere(String description, int id);
-
+  
 	ArrayList<Client> getClientResearchBar(String research);
+
 }

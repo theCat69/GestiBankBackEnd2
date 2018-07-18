@@ -14,4 +14,5 @@ public interface DemandeOuvertureCompteDao {
 	
 	List<DemandeOuvertureCompte> findAllDemandesOuvertureComptes(); 
 	
+	List<DemandeOuvertureCompte> findDemandeOuvertureCompteByIdConseiller(int id);
 }

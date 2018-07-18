@@ -16,9 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wha.model.Client;
+import com.wha.model.Compte;
 import com.wha.model.Conseiller;
+import com.wha.model.DemandeOuvertureCompte;
 import com.wha.service.ServiceClient;
+import com.wha.service.ServiceCompte;
 import com.wha.service.ServiceConseiller;
+import com.wha.service.ServiceDemande;
 
 @RestController
 public class ConseillerRestController {
@@ -27,6 +31,10 @@ public class ConseillerRestController {
 	private ServiceConseiller serviceConseiller;
 	@Autowired
 	private ServiceClient serviceClient;
+	@Autowired
+	private ServiceDemande serviceDemande;
+	@Autowired
+	private ServiceCompte serviceCompte;
 
 	public ConseillerRestController() {
 	}
@@ -152,6 +160,39 @@ public class ConseillerRestController {
 		
 	}
 	
+	@GetMapping("/conseillers/{id}/demandes")
+	public ResponseEntity<List<DemandeOuvertureCompte>> getDemandeOuverturesByIdCons(@PathVariable("id") int id) {
+
+		List<DemandeOuvertureCompte> douvcompte = serviceDemande.findDemandeOuvertureCompteByIdConseiller(id);
+
+		if (douvcompte == null) {
+			return new ResponseEntity<List<DemandeOuvertureCompte>>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<DemandeOuvertureCompte>>(douvcompte, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/demandes/{id_d}")
+	@Transactional
+	public ResponseEntity<Integer> deleteDemande(@PathVariable Integer id_d) {
+		if (serviceDemande.getDemandeById(id_d) == null) {
+			return new ResponseEntity<Integer>(id_d, HttpStatus.NOT_FOUND);
+		} else {
+			serviceDemande.deleteDemande(id_d);
+			return new ResponseEntity<Integer>(id_d, HttpStatus.OK);
+		}	
+	}
+	
+	@PutMapping(value = "/demandes")
+	@Transactional
+	public ResponseEntity<Compte> validateDemande(@RequestBody DemandeOuvertureCompte demande){
+		if (serviceDemande.getDemandeById(demande.getId()) == null) {
+			return new ResponseEntity<Compte>(HttpStatus.NOT_FOUND);
+		} else {
+			serviceDemande.deleteDemande(demande.getId());
+			Compte compte = serviceCompte.createCompte(demande);
+			return new ResponseEntity<Compte>(compte, HttpStatus.OK);
+		}
+	}
 	
   
 }

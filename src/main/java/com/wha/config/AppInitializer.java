@@ -4,6 +4,8 @@ import javax.servlet.Filter;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import com.wha.config.AppConfig;
+
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })

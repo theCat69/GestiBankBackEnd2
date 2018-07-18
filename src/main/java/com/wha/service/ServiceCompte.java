@@ -1,9 +1,10 @@
 package com.wha.service;
-
 import java.util.Set;
 
 import com.wha.model.Compte;
+import com.wha.model.Transaction;
 import com.wha.model.DemandeOuvertureCompte;
+
 
 public interface ServiceCompte {
 	Compte findByRib(Long rib);
@@ -19,6 +20,8 @@ public interface ServiceCompte {
 	void updateCompte(Compte compte);
 
 	Compte updateCompteByRib(Long rib, Compte compte);
+
+	void calculTransaction(Transaction transaction);
 
 	Compte calculSolde(Compte compte);
 	

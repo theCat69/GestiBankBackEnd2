@@ -24,14 +24,12 @@ public class Client extends User {
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=false, fetch=FetchType.EAGER)
 	private Set<Compte> comptes;
 	
-	//Todo a supprimer
 	private int idConseiller;
 
 	public Client() {
 		super();
 	}
 
-	
 	public Client(int id, String firstName, String lastName, String email, String password, String phonenumber,
 			String address, Date dateOfBirth, int numeroclient, Set<Compte> comptes, int idconseiller) {
 		super(id, firstName, lastName, email, password, phonenumber, address, dateOfBirth);

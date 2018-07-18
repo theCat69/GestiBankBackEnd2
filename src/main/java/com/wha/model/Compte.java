@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 public class Compte {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	//@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long rib;
 	private String description;
 	private Date dateCreation;

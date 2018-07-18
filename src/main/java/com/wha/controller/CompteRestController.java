@@ -1,4 +1,5 @@
 package com.wha.controller;
+
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wha.model.Compte;
 import com.wha.model.Operation;
+import com.wha.model.Transaction;
 import com.wha.service.ServiceCompte;
 
 @RestController
@@ -31,24 +33,15 @@ public class CompteRestController {
 		Compte compte = serviceCompte.findByRib(rib);
 		return compte.getOperations();
 	}
-	
 
-	@PutMapping("/comptes/{rib}/operations")
+	@PutMapping("/comptes/operations")
 	@Transactional
-	public ResponseEntity<Compte> createOperation(@PathVariable("rib") Long rib, @RequestBody Operation operation) {
-		System.out.println("Opération = " + operation.toString());
-		Compte compte = serviceCompte.findByRib(rib);
-		if (compte == null) {
-			return new ResponseEntity<Compte>(compte, HttpStatus.NOT_FOUND);
+	public ResponseEntity<Transaction> createOperation(@RequestBody Transaction transaction) {
+		if (transaction == null) {
+			return new ResponseEntity<Transaction>(transaction, HttpStatus.NO_CONTENT);
 		} else {
-			if (operation == null) {
-				return new ResponseEntity<Compte>(compte, HttpStatus.NO_CONTENT);
-			} else {
-				compte.getOperations().add(operation);
-				compte = serviceCompte.calculSolde(compte);
-				serviceCompte.updateCompte(compte);
-				return new ResponseEntity<Compte>(compte, HttpStatus.OK);
-			}
+			serviceCompte.calculTransaction(transaction);
+			return new ResponseEntity<Transaction>(transaction, HttpStatus.OK);
 		}
 	}
 

@@ -51,7 +51,7 @@ public class ServiceClientImpl implements ServiceClient {
 	}
 
 	@Override
-	public Set<Client> findAllClients() {
+	public ArrayList<Client> findAllClients() {
 		return clientDao.findAllClients();
 	}
 
@@ -115,13 +115,19 @@ public class ServiceClientImpl implements ServiceClient {
 	}
 
 	@Override
-	public Set<Client> findClientsNotAttributed() {
+	public ArrayList<Client> findClientsNotAttributed() {
 		return clientDao.findClientsNotAttributed();
 	}
 
 	@Override
 	public Long getNbOfClients() {
 		return clientDao.getNbOfClients();
+	}
+	
+	@Override
+	public ArrayList<Client> getClientResearchBar(String research) {
+		ArrayList<Client> clients = clientDao.findClientResearchBar(research);
+		return clients;	
 	}
 	
 	// !!! Renvoie une valeur null attaché dans le Set !!! Mais pourquoi ???

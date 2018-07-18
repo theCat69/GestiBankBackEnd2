@@ -1,4 +1,5 @@
 package com.wha.service;
+import java.util.ArrayList;
 import java.util.Set;
 
 import com.wha.model.Client;
@@ -11,7 +12,7 @@ public interface ServiceClient {
 
 	void saveClient(Client client);
 
-	Set<Client> findAllClients();
+	ArrayList<Client> findAllClients();
 
 	Client findById(int id);
 
@@ -27,11 +28,12 @@ public interface ServiceClient {
 
 	Long findNbOfNotAttClients();
 
-	Set<Client> findClientsNotAttributed();
+	ArrayList<Client> findClientsNotAttributed();
 
 	Long getNbOfClients();
 
 	Set<Compte> getCompteCourantRemenuere(String description, int id);
-	
-	
+  
+	ArrayList<Client> getClientResearchBar(String research);
+
 }

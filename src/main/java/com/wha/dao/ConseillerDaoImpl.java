@@ -14,9 +14,6 @@ public class ConseillerDaoImpl extends AbstractDao<Integer, Conseiller> implemen
 
 	@Override
 	public Conseiller findById(int id) {
-		// Query q = getEntityManager().createQuery("select c from Conseiller c where id =
-		// ?1").setParameter(1, id);
-		// return (Conseiller) q.getSingleResult();
 		return getByKey(id);
 	}
 
@@ -54,11 +51,10 @@ public class ConseillerDaoImpl extends AbstractDao<Integer, Conseiller> implemen
 		Conseiller Conseiller = null;
 		String rqt = "select c from Conseiller c where c.matricule = ?1";
 		Query q = getEntityManager().createQuery(rqt).setParameter(1, matricule);
-		
+
 		try {
 			Conseiller = (Conseiller) q.getSingleResult();
-		}
-		catch (NoResultException nre) {
+		} catch (NoResultException nre) {
 		}
 
 		if (Conseiller == null) {
@@ -75,7 +71,5 @@ public class ConseillerDaoImpl extends AbstractDao<Integer, Conseiller> implemen
 		Long nbOfConseillers = (Long) q.getSingleResult();
 		return nbOfConseillers;
 	}
-
-	
 
 }

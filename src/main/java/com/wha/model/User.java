@@ -16,9 +16,9 @@ import javax.persistence.InheritanceType;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "USER_TYPE")
 public class User implements Serializable {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected int id;
 	protected String firstName;
 	protected String lastName;
@@ -28,13 +28,11 @@ public class User implements Serializable {
 	protected String address;
 	protected Date dateOfBirth;
 
-	
-
 	public User() {
 	}
 
-	public User(int id, String firstName, String lastName, String email, String password, String phonenumber, String address,
-			Date dateOfBirth) {
+	public User(int id, String firstName, String lastName, String email, String password, String phonenumber,
+			String address, Date dateOfBirth) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -109,6 +107,5 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
+
 }

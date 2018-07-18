@@ -18,8 +18,7 @@ public class TransactionDaoImpl extends AbstractDao<Integer, Transaction> implem
 
 	@Override
 	public void save(Transaction transaction) {
-		save(transaction);
-
+		persist(transaction);
 	}
 
 	@Override
@@ -27,6 +26,7 @@ public class TransactionDaoImpl extends AbstractDao<Integer, Transaction> implem
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Transaction> findAllTransaction() {
 		Query q = getEntityManager().createQuery("select * from Transaction");

@@ -17,26 +17,26 @@ import com.wha.service.ServiceUser;
 
 @RestController
 public class UserRestController {
-	
+
 	@Autowired
 	private ServiceUser serviceUser;
-	
+
 	public UserRestController() {
 
 	}
 
 	@PostMapping("/users/connexion")
-	public ResponseEntity<User> connexion(@RequestBody String form) throws JsonParseException, JsonMappingException, IOException{
-		
+	public ResponseEntity<User> connexion(@RequestBody String form)
+			throws JsonParseException, JsonMappingException, IOException {
+
 		ObjectMapper mapper = new ObjectMapper();
 		User test = mapper.readValue(form, User.class);
-		
-		User user = this.serviceUser.connectUser(test.getEmail(),test.getPassword());
+
+		User user = this.serviceUser.connectUser(test.getEmail(), test.getPassword());
 		try {
-		return new ResponseEntity<User>(user, HttpStatus.OK);
-		}
-		catch (Exception e) {
-		return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<User>(user, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);
 		}
 	}
 }

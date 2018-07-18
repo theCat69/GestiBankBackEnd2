@@ -4,10 +4,8 @@ import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -15,15 +13,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name="Client")
+@Table(name = "Client")
 public class Client extends User {
-	
+
 	private int numeroclient;
-	
+
 	@JsonIgnore
-	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=false, fetch=FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER)
 	private Set<Compte> comptes;
-	
+
 	private int idConseiller;
 
 	public Client() {
@@ -37,7 +35,6 @@ public class Client extends User {
 		this.comptes = comptes;
 		this.idConseiller = idconseiller;
 	}
-
 
 	public Set<Compte> getComptes() {
 		return comptes;
@@ -55,15 +52,12 @@ public class Client extends User {
 		this.numeroclient = numeroclient;
 	}
 
-
 	public int getIdConseiller() {
 		return idConseiller;
 	}
-
 
 	public void setIdConseiller(int idConseiller) {
 		this.idConseiller = idConseiller;
 	}
 
 }
-

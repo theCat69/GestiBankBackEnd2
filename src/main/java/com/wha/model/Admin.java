@@ -5,10 +5,9 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-
 @SuppressWarnings("serial")
 @Entity
-@Table(name="Admin")
+@Table(name = "Admin")
 public class Admin extends User {
 	private String matricule;
 	private String fonction;
@@ -37,16 +36,14 @@ public class Admin extends User {
 	public void setContratStartingDate(Date contratStartingDate) {
 		this.contratStartingDate = contratStartingDate;
 	}
- 
-	
-	
+
 	public Admin() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Admin(int id, String firstName, String lastName, String email, String password, String phonenumber, String address,
-			Date dateOfBirth, String matricule, String fonction, Date contratStartingDate) {
+	public Admin(int id, String firstName, String lastName, String email, String password, String phonenumber,
+			String address, Date dateOfBirth, String matricule, String fonction, Date contratStartingDate) {
 		super(id, firstName, lastName, email, password, phonenumber, address, dateOfBirth);
 		this.matricule = matricule;
 		this.fonction = fonction;

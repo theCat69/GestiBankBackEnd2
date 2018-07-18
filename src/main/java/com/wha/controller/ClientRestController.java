@@ -31,8 +31,8 @@ public class ClientRestController {
 
 	@GetMapping("/clients")
 	public ResponseEntity<ArrayList<Client>> getClients() {
-		ArrayList<Client> clients= serviceClient.findAllClients();
-		if(clients == null) {
+		ArrayList<Client> clients = serviceClient.findAllClients();
+		if (clients == null) {
 			return new ResponseEntity<ArrayList<Client>>(HttpStatus.NOT_FOUND);
 		} else {
 			return new ResponseEntity<ArrayList<Client>>(clients, HttpStatus.OK);
@@ -51,24 +51,24 @@ public class ClientRestController {
 			return new ResponseEntity<Client>(client, HttpStatus.OK);
 		}
 	}
-	
+
 	@GetMapping("/clients/nbnotattributed")
 	public ResponseEntity<Long> getNbOfNotAttributedClient() {
 		Long nb = serviceClient.findNbOfNotAttClients();
 		return new ResponseEntity<Long>(nb, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("clients/notAttributed")
 	public ResponseEntity<ArrayList<Client>> getClientsNotAttributed() {
-		ArrayList<Client> clients= serviceClient.findClientsNotAttributed();
-		if(clients == null) {
+		ArrayList<Client> clients = serviceClient.findClientsNotAttributed();
+		if (clients == null) {
 			return new ResponseEntity<ArrayList<Client>>(HttpStatus.NOT_FOUND);
 		} else {
 			return new ResponseEntity<ArrayList<Client>>(clients, HttpStatus.OK);
 		}
 
 	}
-	
+
 	@PostMapping(value = "/clients")
 	@Transactional
 	public ResponseEntity<Client> createCustomer(@RequestBody Client client) {
@@ -84,10 +84,10 @@ public class ClientRestController {
 		} else {
 			serviceClient.deleteClientById(id);
 			return new ResponseEntity<Integer>(id, HttpStatus.OK);
-		}	
+		}
 	}
 
-	//For dev fun :p
+	// For dev fun :p
 	@DeleteMapping("/clients/deleteallclients")
 	@Transactional
 	public ResponseEntity<String> deleteAllClient() {
@@ -111,17 +111,18 @@ public class ClientRestController {
 		Client client = serviceClient.findById(id);
 		return client.getComptes();
 	}
-	
+
 	@GetMapping("/clients/{id}/comptesRorC/{description}")
-	public ResponseEntity<Set<Compte>> getComptesCourantRemenuere(@PathVariable("id") int id, @PathVariable("description") String description) {
+	public ResponseEntity<Set<Compte>> getComptesCourantRemenuere(@PathVariable("id") int id,
+			@PathVariable("description") String description) {
 		Set<Compte> comptes = serviceClient.getCompteCourantRemenuere(description, id);
 		if (comptes == null) {
 			return new ResponseEntity<Set<Compte>>(HttpStatus.NOT_FOUND);
-		}
-		else {
+		} else {
 			return new ResponseEntity<Set<Compte>>(comptes, HttpStatus.OK);
 		}
 	}
+
 	@PutMapping("/clients/{id}/comptes")
 	@Transactional
 	public ResponseEntity<Client> createCompte(@PathVariable("id") int id, @RequestBody Compte compte) {
@@ -140,7 +141,7 @@ public class ClientRestController {
 		}
 
 	}
-	
+
 	@DeleteMapping("/clients/{id}/comptes")
 	@Transactional
 	public ResponseEntity<Client> deleteCompte(@PathVariable("id") int id, @RequestBody Compte compte) {
@@ -159,24 +160,22 @@ public class ClientRestController {
 		}
 
 	}
-	
-	@PostMapping(value= "/clients/DOCpts")
+
+	@PostMapping(value = "/clients/DOCpts")
 	@Transactional
 	public ResponseEntity<Boolean> demandeOuvertureCompte(@RequestBody DemandeOuvertureCompte dOC) {
 		try {
-		serviceClient.demandeOuvertureCompte(dOC);
-		if (dOC == null) {
-			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_MODIFIED);
-		}
-		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-		}
-		catch (Exception e)
-		{
+			serviceClient.demandeOuvertureCompte(dOC);
+			if (dOC == null) {
+				return new ResponseEntity<Boolean>(false, HttpStatus.NOT_MODIFIED);
+			}
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		} catch (Exception e) {
 			return new ResponseEntity<Boolean>(HttpStatus.NOT_MODIFIED);
 		}
 	}
-	
-	@GetMapping(value="/clients/getNb")
+
+	@GetMapping(value = "/clients/getNb")
 	public ResponseEntity<Long> getNbOfClients() {
 		Long nbOfClients = serviceClient.getNbOfClients();
 		if (nbOfClients == null) {
@@ -185,15 +184,14 @@ public class ClientRestController {
 			return new ResponseEntity<Long>(nbOfClients, HttpStatus.OK);
 		}
 	}
-	
-	@GetMapping(value="/clients/researched/{research}")
-	public ResponseEntity<ArrayList<Client>> getClientResearchByName(@PathVariable("research") String research){
+
+	@GetMapping(value = "/clients/researched/{research}")
+	public ResponseEntity<ArrayList<Client>> getClientResearchByName(@PathVariable("research") String research) {
 		ArrayList<Client> clients = serviceClient.getClientResearchBar(research);
 		System.out.println(clients);
 		if (clients == null) {
 			return new ResponseEntity<ArrayList<Client>>(HttpStatus.NOT_FOUND);
-		}
-		else {
+		} else {
 			return new ResponseEntity<ArrayList<Client>>(clients, HttpStatus.OK);
 		}
 	}
